@@ -1,3 +1,4 @@
+package com.chess;
 
 public class EmitChess extends Chess{
 
@@ -5,6 +6,11 @@ public class EmitChess extends Chess{
 	public void rotate() {
 		
 		
+	}
+
+	@Override
+	public Direction route(Direction dir) {
+		return null;
 	}
 
 }

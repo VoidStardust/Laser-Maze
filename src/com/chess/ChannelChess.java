@@ -1,4 +1,4 @@
-
+package com.chess;
 
 public class ChannelChess extends Chess{
 
