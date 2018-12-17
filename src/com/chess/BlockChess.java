@@ -1,3 +1,4 @@
+package com.chess;
 
 public class BlockChess extends Chess{
 	@Override

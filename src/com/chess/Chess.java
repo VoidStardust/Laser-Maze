@@ -1,3 +1,4 @@
+package com.chess;
 
 public abstract class Chess {
 	public Mode mode;
