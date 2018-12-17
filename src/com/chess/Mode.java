@@ -1,0 +1,4 @@
+
+public enum Mode {
+	NULL,LEFT,RIGHT,HORIZONTAL,VERTICAL;
+}

@@ -9,5 +9,5 @@ public abstract class Chess {
 		//used=!used;
 		used=true;
 	}
-	
+
 }

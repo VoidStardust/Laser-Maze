@@ -12,6 +12,6 @@ public class Painter {
 	}
 
 	public static void DrawBoard(Graphics graphics, Board board) {
-
+		graphics.setColor(Color.BLACK);
 	}
 }
