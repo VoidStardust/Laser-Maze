@@ -89,8 +89,9 @@ public class Board {
 		}
 		int tmpx=x;
 		int tmpy=y;
+		Direction tmpdir=dir;
 		Direction newDir=chess.route(dir);
-			switch (newDir) {
+		switch (newDir) {
 			case UP: 
 				System.out.println("("+x+","+y+")"+"up");
 				x=x-1;
@@ -114,32 +115,36 @@ public class Board {
 			default:
 				break;
 			}		
-			formRoute(x,y,dir,rt);	
-		/*if(chess instanceof DualReflectorChess) {
+		if(chess instanceof DualReflectorChess) {
 			Route newRt=new Route(rt);
-			Direction straightDir=((DualReflectorChess) chess).goStraight(dir);
-			switch (straightDir) {
+			Direction forkDir=((DualReflectorChess) chess).fork(tmpdir);
+			switch (forkDir) {
 			case UP:
 				tmpx=tmpx-1;
 				System.out.println("up"+"("+tmpx+","+tmpy+")");
-				dir=Direction.DOWN;
+				tmpdir=Direction.DOWN;
+				break;
 			case DOWN:
 				tmpx=tmpx+1;
 				System.out.println("down"+"("+tmpx+","+tmpy+")");
-				dir=Direction.UP;
+				tmpdir=Direction.UP;
+				break;
 			case LEFT:
 				tmpy=tmpy-1;
 				System.out.println("left"+"("+tmpx+","+tmpy+")");
-				dir=Direction.RIGHT;
+				tmpdir=Direction.RIGHT;
+				break;
 			case RIGHT:
 				tmpy=tmpy+1;
 				System.out.println("right"+"("+tmpx+","+tmpy+")");
-				dir=Direction.LEFT;
+				tmpdir=Direction.LEFT;
+				break;
 			default:
-				return;
+				break;
 			}
-			//formRoute(tmpx, tmpy, dir, newRt);		
-		}*/
+			formRoute(tmpx, tmpy, tmpdir, newRt);		
+		}
+		formRoute(x,y,dir,rt);	
 	}
 	public void solve() {
 		
@@ -151,21 +156,26 @@ public class Board {
 		return level*100;
 	}
 	public static void main(String[]args) {
-		Board board12=new Board(3);
-		board12.addChess(new EmitChess(Mode.LEFT), 3, 4);
-		board12.addChess(new ReflectorChess(Mode.LEFT), 3, 3);
-		board12.addChess(new ChannelChess(Mode.HORIZONTAL), 2, 0);
-		board12.addChess(new BlockChess(), 4, 0);
-		board12.addChess(new ReceiveChess(Mode.LEFTUP), 4, 3);
-		board12.addChess(new ReceiveChess(Mode.LEFTDOWN), 3, 0);
-		board12.addChess(new ReceiveChess(Mode.RIGHTLEFT), 0, 0);
-		board12.addChess(new ReceiveChess(Mode.LEFTUP), 0, 3);
-		board12.formRoute();
-		ArrayList<Route>routeArray=board12.getRoute();
+		Board board17=new Board(4);
+		board17.addChess(new EmitChess(Mode.UP), 3, 1);
+		board17.addChess(new ChannelChess(Mode.HORIZONTAL), 3, 3);
+		board17.addChess(new DualReflectorChess(Mode.LEFT), 0, 2);
+		board17.addChess(new DualReflectorChess(Mode.RIGHT), 1, 3);
+		board17.addChess(new BlockChess(), 1, 2);
+		board17.addChess(new ReflectorChess(Mode.RIGHT), 2, 2);
+		board17.addChess(new ReceiveChess(Mode.RIGHTLEFT), 0, 1);
+		board17.addChess(new ReceiveChess(Mode.LEFTUP), 0, 3);
+		board17.addChess(new ReceiveChess(Mode.RIGHTRIGHT), 1, 0);
+		board17.addChess(new ReceiveChess(Mode.RIGHTRIGHT), 2, 0);
+		board17.addChess(new ReceiveChess(Mode.LEFTUP), 4, 3);
+		board17.formRoute();
+		ArrayList<Route>routeArray=board17.getRoute();
 		for(Route route:routeArray){
+			System.out.println("---");
 			for(Position pos:route.line) {
 			System.out.println(pos);
 			}
+			
 		}
 	}
 }
