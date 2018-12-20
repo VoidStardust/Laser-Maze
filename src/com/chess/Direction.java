@@ -1,5 +1,5 @@
 package com.chess;
 
 public enum Direction {
-	UP,DOWN,LEFT,RIGHT,NULL;
+	UP, DOWN, LEFT, RIGHT, NULL
 }

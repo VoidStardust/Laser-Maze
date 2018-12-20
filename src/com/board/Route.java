@@ -1,13 +1,17 @@
+package com.board;
+
 import java.util.ArrayList;
 
 public class Route {
-	public ArrayList<Position> line;
+	public ArrayList <Position> line;
+
 	public Route() {
-		line=new ArrayList<>();
+		line = new ArrayList <>();
 	}
+
 	public Route(Route rt) {
-		line=new ArrayList<Position>();
-		for(Position pos:rt.line) {
+		line = new ArrayList <Position>();
+		for(Position pos : rt.line) {
 			line.add(pos);
 		}
 	}

@@ -1,15 +1,13 @@
 package com.chess;
 
-import com.chess.Chess;
-import com.chess.Direction;
-
-public class BlockChess extends Chess {
-	@Override
-	public void rotate() {
+public class EmptyChess extends Chess {
+	public EmptyChess() {
+		mode = Mode.NULL;
+		canRotate = false;
 	}
 
-	public BlockChess() {
-		mode = Mode.NULL;
+	@Override
+	public void rotate() {
 	}
 
 	@Override
@@ -23,13 +21,12 @@ public class BlockChess extends Chess {
 				return Direction.RIGHT;
 			case RIGHT:
 				return Direction.LEFT;
-			default:
-				return Direction.NULL;
 		}
+		return Direction.NULL;
 	}
 
 	@Override
 	public boolean equals(Chess obj) {
-		return obj instanceof BlockChess;
+		return obj instanceof EmptyChess;
 	}
 }
