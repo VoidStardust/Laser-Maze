@@ -1,18 +1,32 @@
 import java.util.ArrayList;
+import java.util.Stack;
 public class Board {
 	public Chess board[][];
+	private ArrayList<VisitInfo>visitInfos;
 	private ArrayList<Route> routeArray;
+	private Stack<Position> positionStack;
 	int level;
 	int roundNum;
 	Position start;
 	Position end;
+	Position checkPoint;
 	public Board(int level,int roundNum) {
 		board=new Chess[5][5];
 		routeArray=new ArrayList<Route>();
+		visitInfos=new ArrayList<VisitInfo>();
+		positionStack=new Stack<Position>();
 		initChess();
 		this.level=level;
 		start=new Position(-1, -1);
 		end=new Position(-1, -1);
+		checkPoint=new Position(-1, -1);
+	}
+	private boolean visited(VisitInfo info) {
+		for(VisitInfo vif:visitInfos) {
+			if(vif.equals(info))
+				return true;
+		}
+		return false;
 	}
 	private void initChess() {
 		for(int i=0;i<5;i++)
@@ -25,6 +39,7 @@ public class Board {
 		if(board[x][y] instanceof BlockChess)
 			return;
 		board[x][y]=chess;
+		positionStack.push(new Position(x, y));
 		if(chess instanceof EmitChess) {
 			setBegin(x, y);
 		}
@@ -41,7 +56,7 @@ public class Board {
 	public ArrayList<Route> getRoute() {
 		return routeArray;
 	}
-	public void formRoute() {
+	public boolean formRoute() {
 		int x=start.getX();
 		int y=start.getY();
 		if(x!=-1&&y!=-1) {
@@ -67,26 +82,33 @@ public class Board {
 				dir=Direction.LEFT;
 				break;
 			default:
-				return;
+				return false;
 			}
-			formRoute(x,y,dir,rt);
+			return formRoute(x,y,dir,rt);
 		}
+		return false;
 	}
 	private boolean inArea(int x,int y) {
 		return 0<=x&&x<5&&0<=y&&y<5;
 	}
-	private void formRoute(int x,int y,Direction dir,Route rt) {
+	private boolean formRoute(int x,int y,Direction dir,Route rt) {
 		if(!inArea(x, y))
-			return;
+			return false;
+		if(visited(new VisitInfo(new Position(x, y), dir)))
+			return false;
 		rt.line.add(new Position(x, y));
 		Chess chess=board[x][y];
 		if(chess instanceof ReceiveChess){
 			chess.route(dir);
 			if(((ReceiveChess) chess).isReceived()) {
 				routeArray.add(rt);
-				return;
+				return true;
 			}
 		}
+		if(chess instanceof ChannelChess) {
+			checkPoint=new Position(x, y);
+		}
+		boolean res=true;
 		int tmpx=x;
 		int tmpy=y;
 		Direction tmpdir=dir;
@@ -134,56 +156,29 @@ public class Board {
 			default:
 				break;
 			}
-			formRoute(tmpx, tmpy, tmpdir, newRt);		
+			res=res&&formRoute(tmpx, tmpy, tmpdir, newRt);		
 		}
-		formRoute(x,y,dir,rt);	
+		res=res&&formRoute(x,y,dir,rt);	
+		res=res&&((ChannelChess)board[checkPoint.getX()][checkPoint.getY()]).used();
+		return res;
 	}
-	/*
 	public boolean isCorrect() {
-		boolean res=false;
-		int i=0,j=0;
-		for(;i<5;i++) {
-			for(;j<5;j++) {
-				if(board[i][j] instanceof EmitChess) {
-					res=true;
-					break;
-				}
-			}
+		boolean res;
+		res=formRoute();
+		if(!res) {
+			while(!routeArray.isEmpty())
+				routeArray.remove(routeArray.size()-1);
 		}
-		if(res) {
-			setBegin(i, j);
-			Mode mode=board[i][j].mode;
-			Direction dir=Direction.NULL;
-			switch (mode) {
-			case UP:
-				i=i-1;
-				dir=Direction.DOWN;
-				break;
-			case DOWN:
-				i=i+1;
-				dir=Direction.UP;
-				break;
-			case LEFT:
-				j=j-1;
-				dir=Direction.RIGHT;
-				break;
-			case RIGHT:
-				j=j+1;
-				dir=Direction.LEFT;
-				break;
-			default:
-				break;
-			}
-			return isCorrect(i,j,dir);
-		}
-		return false;
+		return res;
 	}
-	private boolean isCorrect(int x,int y,Direction dir) {
-		if(!inArea(x, y))
-			return false;
-		
-		return true;
-	}*/
+	public void withdraw() {
+		if(!positionStack.isEmpty()) {
+			Position pos=positionStack.pop();
+			int x=pos.getX();
+			int y=pos.getY();
+			board[x][y]=new EmptyChess();
+		}
+	}
 	public void giveSolution() {
 		Board solutionBoard=Rounds.getInstance().solutions.get(roundNum);
 		for(int i=0;i<5;i++) {
@@ -208,7 +203,7 @@ public class Board {
 			}
 		}
 	}
-	public int getGrade() {
+	public int giveGrade() {
 		return level*100;
 	}
 	public static void main(String[]args) {
@@ -230,5 +225,16 @@ public class Board {
 			}
 			
 		}
+	}
+}
+class VisitInfo{
+	public Position pos;
+	public Direction dir;
+	public VisitInfo(Position pos,Direction dir) {
+		this.pos=pos;
+		this.dir=dir;
+	}
+	public boolean equals(VisitInfo info) {
+		return info.pos.equals(this.pos) && info.dir.equals(this.dir);
 	}
 }

@@ -15,4 +15,7 @@ public class Position {
 	public String toString() {
 		return "("+x+","+y+")";
 	}
+	public boolean equals(Position pos) {
+		return this.x==pos.getX() && this.y==pos.getY();
+	}
 }

@@ -1,8 +1,12 @@
 public class ChannelChess extends Chess{
-
+	boolean used;
 	public ChannelChess(Mode mode) {
 		this.canRotate=false;
 		this.mode=mode;
+		used=false;
+	}
+	public boolean used() {
+		return used;
 	}
 	public ChannelChess() {
 		canRotate=true;
@@ -44,5 +48,4 @@ public class ChannelChess extends Chess{
 	public boolean equals(Chess obj) {
 		return obj instanceof ChannelChess && obj.mode==this.mode;
 	}
-
 }
