@@ -21,4 +21,8 @@ public class EmptyChess extends Chess {
 		}
 		return Direction.NULL;	
 	}
+	@Override
+	public boolean equals(Chess obj) {
+		return obj instanceof EmptyChess;
+	}
 }

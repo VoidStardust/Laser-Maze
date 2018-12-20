@@ -82,5 +82,9 @@ public class ReceiveChess extends Chess {
 	public boolean isReceived() {
 		return received;
 	}
+	@Override
+	public boolean equals(Chess obj) {
+		return obj instanceof ReceiveChess && obj.mode == this.mode;
+	}
 
 }

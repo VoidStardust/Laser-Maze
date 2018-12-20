@@ -24,5 +24,9 @@ public class EmitChess extends Chess{
 	public Direction route(Direction dir) {
 		return Direction.NULL;
 	}
+	@Override
+	public boolean equals(Chess obj) {
+		return obj instanceof EmitChess && this.mode==obj.mode;
+	}
 
 }

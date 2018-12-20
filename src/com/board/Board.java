@@ -3,9 +3,10 @@ public class Board {
 	public Chess board[][];
 	private ArrayList<Route> routeArray;
 	int level;
+	int roundNum;
 	Position start;
 	Position end;
-	public Board(int level) {
+	public Board(int level,int roundNum) {
 		board=new Chess[5][5];
 		routeArray=new ArrayList<Route>();
 		initChess();
@@ -83,7 +84,6 @@ public class Board {
 			chess.route(dir);
 			if(((ReceiveChess) chess).isReceived()) {
 				routeArray.add(rt);
-				//System.out.println("received");
 				return;
 			}
 		}
@@ -93,22 +93,18 @@ public class Board {
 		Direction newDir=chess.route(dir);
 		switch (newDir) {
 			case UP: 
-				System.out.println("("+x+","+y+")"+"up");
 				x=x-1;
 				dir=Direction.DOWN;
 				break;
 			case DOWN:
-				System.out.println("("+x+","+y+")"+"down");
 				x=x+1;
 				dir=Direction.UP;
 				break;
 			case LEFT:
-				System.out.println("("+x+","+y+")"+"left");
 				y=y-1;
 				dir=Direction.RIGHT;
 				break;
 			case RIGHT:
-				System.out.println("("+x+","+y+")"+"right");
 				y=y+1;
 				dir=Direction.LEFT;
 				break;
@@ -121,22 +117,18 @@ public class Board {
 			switch (forkDir) {
 			case UP:
 				tmpx=tmpx-1;
-				System.out.println("up"+"("+tmpx+","+tmpy+")");
 				tmpdir=Direction.DOWN;
 				break;
 			case DOWN:
 				tmpx=tmpx+1;
-				System.out.println("down"+"("+tmpx+","+tmpy+")");
 				tmpdir=Direction.UP;
 				break;
 			case LEFT:
 				tmpy=tmpy-1;
-				System.out.println("left"+"("+tmpx+","+tmpy+")");
 				tmpdir=Direction.RIGHT;
 				break;
 			case RIGHT:
 				tmpy=tmpy+1;
-				System.out.println("right"+"("+tmpx+","+tmpy+")");
 				tmpdir=Direction.LEFT;
 				break;
 			default:
@@ -146,30 +138,91 @@ public class Board {
 		}
 		formRoute(x,y,dir,rt);	
 	}
-	public void solve() {
+	/*
+	public boolean isCorrect() {
+		boolean res=false;
+		int i=0,j=0;
+		for(;i<5;i++) {
+			for(;j<5;j++) {
+				if(board[i][j] instanceof EmitChess) {
+					res=true;
+					break;
+				}
+			}
+		}
+		if(res) {
+			setBegin(i, j);
+			Mode mode=board[i][j].mode;
+			Direction dir=Direction.NULL;
+			switch (mode) {
+			case UP:
+				i=i-1;
+				dir=Direction.DOWN;
+				break;
+			case DOWN:
+				i=i+1;
+				dir=Direction.UP;
+				break;
+			case LEFT:
+				j=j-1;
+				dir=Direction.RIGHT;
+				break;
+			case RIGHT:
+				j=j+1;
+				dir=Direction.LEFT;
+				break;
+			default:
+				break;
+			}
+			return isCorrect(i,j,dir);
+		}
+		return false;
+	}
+	private boolean isCorrect(int x,int y,Direction dir) {
+		if(!inArea(x, y))
+			return false;
 		
+		return true;
+	}*/
+	public void giveSolution() {
+		Board solutionBoard=Rounds.getInstance().solutions.get(roundNum);
+		for(int i=0;i<5;i++) {
+			for(int j=0;j<5;j++) {
+				this.board[i][j]=solutionBoard.board[i][j];
+			}
+		}
+		//repaint
 	}
 	public void giveHint() {
-		
+		Board solutionBoard=Rounds.getInstance().solutions.get(roundNum);
+		for(int i=0;i<5;i++) {
+			for(int j=0;j<5;j++) {
+				if(solutionBoard.board[i][j].equals(this.board[i][j])) {
+					continue;
+				}
+				else {
+					this.board[i][j]=solutionBoard.board[i][j];
+					break;
+					//repaint
+				}
+			}
+		}
 	}
 	public int getGrade() {
 		return level*100;
 	}
 	public static void main(String[]args) {
-		Board board17=new Board(4);
-		board17.addChess(new EmitChess(Mode.UP), 3, 1);
-		board17.addChess(new ChannelChess(Mode.HORIZONTAL), 3, 3);
-		board17.addChess(new DualReflectorChess(Mode.LEFT), 0, 2);
-		board17.addChess(new DualReflectorChess(Mode.RIGHT), 1, 3);
-		board17.addChess(new BlockChess(), 1, 2);
-		board17.addChess(new ReflectorChess(Mode.RIGHT), 2, 2);
-		board17.addChess(new ReceiveChess(Mode.RIGHTLEFT), 0, 1);
-		board17.addChess(new ReceiveChess(Mode.LEFTUP), 0, 3);
-		board17.addChess(new ReceiveChess(Mode.RIGHTRIGHT), 1, 0);
-		board17.addChess(new ReceiveChess(Mode.RIGHTRIGHT), 2, 0);
-		board17.addChess(new ReceiveChess(Mode.LEFTUP), 4, 3);
-		board17.formRoute();
-		ArrayList<Route>routeArray=board17.getRoute();
+		Board board20=new Board(4,20);
+		board20.addChess(new EmitChess(Mode.LEFT),2,4);
+		board20.addChess(new DualReflectorChess(Mode.RIGHT), 1, 1);
+		board20.addChess(new DualReflectorChess(Mode.RIGHT), 3, 2);
+		board20.addChess(new ReceiveChess(Mode.LEFTDOWN), 0, 1);
+		board20.addChess(new ReceiveChess(Mode.RIGHTLEFT), 1, 4);
+		board20.addChess(new ReceiveChess(Mode.RIGHTLEFT), 2, 2);
+		board20.addChess(new ReceiveChess(Mode.LEFTDOWN), 3, 1);
+		board20.addChess(new ReceiveChess(Mode.LEFTUP), 4, 2);
+		board20.formRoute();
+		ArrayList<Route>routeArray=board20.getRoute();
 		for(Route route:routeArray){
 			System.out.println("---");
 			for(Position pos:route.line) {
