@@ -4,6 +4,7 @@ import com.board.Board;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.ImageObserver;
 
 public class Painter {
 
@@ -11,29 +12,14 @@ public class Painter {
 		System.out.println("Hello, world!");
 	}
 
-	public static void DrawBoard(Graphics graphics, Board board) {
-		graphics.setColor(Color.BLACK);
+	public static void DrawBoard(Graphics graphics, Board board, ImageObserver imageObserver) {
+//		graphics.setColor(Color.BLACK);
 		for(int i = 0; i < 5; i++)
 		{
 			for(int j = 0; j < 5; j++)
 			{
-				switch(board.board[i][j].getType())
-				{
-					case EmitChess:
-					case BlockChess:
-					case EmptyChess:
-					case ChannelChess:
-					case ReceiveChess:
-					case ReflectorChess:
-					case DualReflectorChess:
-				}
+				board.board[i][j].DrawChess(graphics, i, j, imageObserver);
 			}
 		}
-
-	}
-
-	public static void DrawChess(Graphics graphics, int x, int y)
-	{
-
 	}
 }
