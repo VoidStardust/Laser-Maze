@@ -29,4 +29,9 @@ public class EmptyChess extends Chess {
 	public boolean equals(Chess obj) {
 		return obj instanceof EmptyChess;
 	}
+
+	@Override
+	public ChessType getType() {
+		return ChessType.EmptyChess;
+	}
 }

@@ -54,4 +54,9 @@ public class ChannelChess extends Chess {
 	public boolean equals(Chess obj) {
 		return obj instanceof ChannelChess && obj.mode == this.mode;
 	}
+
+	@Override
+	public ChessType getType() {
+		return ChessType.ChannelChess;
+	}
 }

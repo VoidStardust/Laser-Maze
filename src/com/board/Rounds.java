@@ -5,8 +5,8 @@ import com.chess.*;
 import java.util.ArrayList;
 
 public class Rounds {
-	public ArrayList <Board> rounds;
-	public ArrayList <Board> solutions;
+	public ArrayList<Board> rounds;
+	public ArrayList<Board> solutions;
 
 	private Rounds() {
 		initRounds();

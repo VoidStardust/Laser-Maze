@@ -32,4 +32,9 @@ public class BlockChess extends Chess {
 	public boolean equals(Chess obj) {
 		return obj instanceof BlockChess;
 	}
+
+	@Override
+	public ChessType getType() {
+		return ChessType.BlockChess;
+	}
 }

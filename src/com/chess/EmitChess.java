@@ -34,4 +34,8 @@ public class EmitChess extends Chess {
 		return obj instanceof EmitChess && this.mode == obj.mode;
 	}
 
+	@Override
+	public ChessType getType() {
+		return ChessType.EmitChess;
+	}
 }

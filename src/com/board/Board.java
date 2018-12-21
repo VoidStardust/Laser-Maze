@@ -7,14 +7,21 @@ import com.chess.*;
 
 public class Board {
 	public Chess board[][];
-	private ArrayList <VisitInfo> visitInfos;
-	private ArrayList <Route> routeArray;
-	private Stack <Position> positionStack;
+	private ArrayList<VisitInfo> visitInfos;
+	private ArrayList<Route> routeArray;
+	private Stack<Position> positionStack;
 	int level;
 	int roundNum;
 	Position start;
 	Position end;
 	Position checkPoint;
+
+	public Board() {
+		board = new Chess[5][5];
+		routeArray = new ArrayList <Route>();
+		visitInfos = new ArrayList <VisitInfo>();
+		positionStack = new Stack <Position>();
+	}
 
 	public Board(int level, int roundNum) {
 		board = new Chess[5][5];

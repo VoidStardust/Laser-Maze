@@ -51,4 +51,9 @@ public class ReflectorChess extends Chess {
 	public boolean equals(Chess obj) {
 		return obj instanceof ReflectorChess && obj.mode == this.mode;
 	}
+
+	@Override
+	public ChessType getType() {
+		return ChessType.ReflectorChess;
+	}
 }

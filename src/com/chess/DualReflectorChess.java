@@ -66,4 +66,8 @@ public class DualReflectorChess extends Chess {
 		return obj instanceof DualReflectorChess && obj.mode == this.mode;
 	}
 
+	@Override
+	public ChessType getType() {
+		return ChessType.DualReflectorChess;
+	}
 }
