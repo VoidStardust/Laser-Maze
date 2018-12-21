@@ -37,3 +37,5 @@ public class GameFrame extends JFrame {
 		grade-=10;//每点击一次提示-10分
 	}
 }
+
+

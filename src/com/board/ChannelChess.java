@@ -16,10 +16,11 @@ public class ChannelChess extends Chess{
 	public void rotate() {
 		if(canRotate) {
 			mode=(mode==Mode.HORIZONTAL)?Mode.VERTICAL:Mode.HORIZONTAL;
-		}
-		
+		}		
 	}
-
+	public void setUsed() {
+		used=true;
+	}
 	@Override
 	public Direction route(Direction dir) {
 		if(mode==Mode.HORIZONTAL) {

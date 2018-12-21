@@ -97,6 +97,7 @@ public class Board {
 		if(visited(new VisitInfo(new Position(x, y), dir)))
 			return false;
 		rt.line.add(new Position(x, y));
+		visitInfos.add(new VisitInfo(new Position(x, y), dir));
 		Chess chess=board[x][y];
 		if(chess instanceof ReceiveChess){
 			chess.route(dir);
@@ -107,6 +108,7 @@ public class Board {
 		}
 		if(chess instanceof ChannelChess) {
 			checkPoint=new Position(x, y);
+			((ChannelChess) chess).setUsed();
 		}
 		boolean res=true;
 		int tmpx=x;
@@ -131,7 +133,7 @@ public class Board {
 				dir=Direction.LEFT;
 				break;
 			default:
-				break;
+				return false;
 			}		
 		if(chess instanceof DualReflectorChess) {
 			Route newRt=new Route(rt);
@@ -154,21 +156,22 @@ public class Board {
 				tmpdir=Direction.LEFT;
 				break;
 			default:
-				break;
+				return false;
 			}
 			res=res&&formRoute(tmpx, tmpy, tmpdir, newRt);		
 		}
 		res=res&&formRoute(x,y,dir,rt);	
+		if(checkPoint.getX()!=-1&&checkPoint.getY()!=-1)
 		res=res&&((ChannelChess)board[checkPoint.getX()][checkPoint.getY()]).used();
 		return res;
 	}
 	public boolean isCorrect() {
 		boolean res;
 		res=formRoute();
-		if(!res) {
+		/*if(!res) {
 			while(!routeArray.isEmpty())
 				routeArray.remove(routeArray.size()-1);
-		}
+		}*/
 		return res;
 	}
 	public void withdraw() {
@@ -207,23 +210,20 @@ public class Board {
 		return level*100;
 	}
 	public static void main(String[]args) {
-		Board board20=new Board(4,20);
-		board20.addChess(new EmitChess(Mode.LEFT),2,4);
-		board20.addChess(new DualReflectorChess(Mode.RIGHT), 1, 1);
-		board20.addChess(new DualReflectorChess(Mode.RIGHT), 3, 2);
-		board20.addChess(new ReceiveChess(Mode.LEFTDOWN), 0, 1);
-		board20.addChess(new ReceiveChess(Mode.RIGHTLEFT), 1, 4);
-		board20.addChess(new ReceiveChess(Mode.RIGHTLEFT), 2, 2);
-		board20.addChess(new ReceiveChess(Mode.LEFTDOWN), 3, 1);
-		board20.addChess(new ReceiveChess(Mode.LEFTUP), 4, 2);
-		board20.formRoute();
-		ArrayList<Route>routeArray=board20.getRoute();
+		Board board17=new Board(4,16);
+		board17.addChess(new EmitChess(Mode.LEFT), 3, 3);
+		board17.addChess(new DualReflectorChess(Mode.RIGHT), 3, 2);
+		board17.addChess(new ReceiveChess(Mode.LEFTUP), 4, 2);
+		board17.addChess(new ReflectorChess(Mode.LEFT), 3, 0);
+		board17.addChess(new ReflectorChess(Mode.RIGHT), 1, 0);
+		board17.addChess(new ReflectorChess(Mode.LEFT), 1, 2);
+		System.out.println(board17.isCorrect());
+		ArrayList<Route>routeArray=board17.getRoute();
 		for(Route route:routeArray){
 			System.out.println("---");
 			for(Position pos:route.line) {
 			System.out.println(pos);
-			}
-			
+			}		
 		}
 	}
 }
