@@ -5,7 +5,6 @@ import com.board.Position;
 import com.board.Rounds;
 import com.board.Route;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
 import java.util.ArrayList;

@@ -1,7 +1,6 @@
 package com.panel;
 
 import com.board.Board;
-import com.board.Position;
 import com.board.Rounds;
 import com.chess.Chess;
 import com.chess.ChessType;
@@ -15,11 +14,10 @@ import java.awt.event.MouseListener;
 
 public class GamePanel extends JPanel implements MouseListener {
 
-	private Board board;
+	private Board board = new Board(0, 0);
 	private Chess selectedChess = new EmptyChess();
 
 	public GamePanel() {
-		board = new Board(0, 1);
 		this.addMouseListener(this);
 	}
 
@@ -52,11 +50,18 @@ public class GamePanel extends JPanel implements MouseListener {
 		int y = e.getX() / 100;
 		int x = e.getY() / 100;
 
-		if(selectedChess.getType() != ChessType.EmptyChess) {
+		if(x > 5 || y > 5)
+			return;
+
+
+		if(board.board[x][y].getType() == ChessType.EmptyChess && selectedChess.getType() != ChessType.EmptyChess) {
 			board.addChess(selectedChess, x, y);
-			board.formRoute();
+			//selectedChess = new EmptyChess();
+		} else {
+			board.board[x][y].rotate();
 		}
 
+		board.formRoute();
 		repaint();
 	}
 

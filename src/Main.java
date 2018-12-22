@@ -1,7 +1,5 @@
-import com.board.Board;
-import com.board.GameFrame;
 import com.board.Rounds;
-import com.chess.ChannelChess;
+import com.chess.BlockChess;
 import com.panel.GamePanel;
 
 import javax.swing.*;
@@ -21,11 +19,12 @@ class Frame extends JFrame {
 	Frame() {
 		setTitle("Laser Maze");
 		setSize(517, 540);
-//		setResizable(false);
+		setResizable(false);
 
 		Container container = getContentPane();
 		GamePanel gamePanel = new GamePanel();
-		gamePanel.setBoard(Rounds.getInstance().solutions.get(18));
+		gamePanel.setBoard(Rounds.getInstance().rounds.get(18));
+		gamePanel.setSelectedChess(new BlockChess());
 		container.add(gamePanel);
 	}
 }
