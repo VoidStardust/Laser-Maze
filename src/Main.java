@@ -8,7 +8,6 @@ public class Main {
 
 	public static void main(String[] args) {
 		GameFrame gf = new GameFrame();
-		gf.
 	}
 }
 
@@ -24,7 +23,7 @@ class Frame extends JFrame {
 
 class Panel extends JPanel {
 
-	Board board();
+	//Board board();
 
 	Panel() {
 

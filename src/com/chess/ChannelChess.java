@@ -1,5 +1,8 @@
 package com.chess;
 
+import java.awt.*;
+import java.awt.image.ImageObserver;
+
 public class ChannelChess extends Chess {
 	boolean used;
 
@@ -58,5 +61,17 @@ public class ChannelChess extends Chess {
 	@Override
 	public ChessType getType() {
 		return ChessType.ChannelChess;
+	}
+
+	public void setUsed() {
+		used = true;
+	}
+
+	@Override
+	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
+		Graphics2D g = (Graphics2D) graphics;
+		String imageFile = "../img/empty_chess.jpg";
+		Image image = Toolkit.getDefaultToolkit().getImage(imageFile);
+		g.drawImage(image, x, y, image.getWidth(imageObserver), image.getHeight(imageObserver), imageObserver);
 	}
 }
