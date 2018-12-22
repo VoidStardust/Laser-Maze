@@ -1,6 +1,7 @@
 package com.panel;
 
 import com.board.Board;
+import com.board.Position;
 import com.board.Rounds;
 import com.chess.Chess;
 import com.chess.ChessType;

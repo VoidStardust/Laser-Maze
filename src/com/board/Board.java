@@ -6,7 +6,7 @@ import java.util.Stack;
 import com.chess.*;
 
 public class Board {
-	public Chess board[][];
+	public Chess[][] board;
 	private ArrayList <VisitInfo> visitInfos;
 	private ArrayList <Route> routeArray;
 	private Stack <Position> positionStack;

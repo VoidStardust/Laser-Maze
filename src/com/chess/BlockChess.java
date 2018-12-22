@@ -2,6 +2,7 @@ package com.chess;
 
 import com.chess.Chess;
 import com.chess.Direction;
+import com.painter.Painter;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
@@ -46,6 +47,6 @@ public class BlockChess extends Chess {
 	@Override
 	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
 		Graphics2D g = (Graphics2D) graphics;
-		g.drawImage(image, x, y, 100, 100, imageObserver);
+		g.drawImage(image, x, y, Painter.width, Painter.height, imageObserver);
 	}
 }

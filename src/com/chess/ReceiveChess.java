@@ -1,5 +1,7 @@
 package com.chess;
 
+import com.painter.Painter;
+
 import java.awt.*;
 import java.awt.image.ImageObserver;
 
@@ -120,6 +122,6 @@ public class ReceiveChess extends Chess {
 		}
 
 		Image image = Toolkit.getDefaultToolkit().getImage(imageFile);
-		g.drawImage(image, x, y, 100, 100, imageObserver);
+		g.drawImage(image, x, y, Painter.width, Painter.height, imageObserver);
 	}
 }

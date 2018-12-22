@@ -12,6 +12,11 @@ import java.util.ArrayList;
 
 public class Painter {
 
+	public static final int width = 100;
+	public static final int height = 100;
+	private static final int[] X = {0, width, width * 2, width * 3, width * 4};
+	private static final int[] Y = {0, height, height * 2, height * 3, height * 4};
+
 	public static void main(String[] args) {
 		System.out.println("Hello, world!");
 	}
@@ -22,11 +27,11 @@ public class Painter {
 	}
 
 	public static void DrawBoard(Graphics graphics, Board board, ImageObserver imageObserver) {
-		for(int i = 0; i < 5; i++)
+		for(int j = 0; j < 5; j++)
 		{
-			for(int j = 0; j < 5; j++)
+			for(int i = 0; i < 5; i++)
 			{
-				board.board[j][i].DrawChess(graphics, i * 100, j * 100, imageObserver);
+				board.board[j][i].DrawChess(graphics, X[i], Y[j], imageObserver);
 			}
 		}
 	}
@@ -40,8 +45,8 @@ public class Painter {
 		for(int i = 0; i + 1 < line.size(); i++) {
 			Position p1 = line.get(i);
 			Position p2 = line.get(i + 1);
-			g.drawLine(p1.getY() * 100 + 50, p1.getX() * 100 + 50,
-					p2.getY() * 100 + 50, p2.getX() * 100 + 50);
+			g.drawLine(X[p1.getY()] + width / 2, Y[p1.getX()] + height / 2,
+					X[p2.getY()] + width / 2, Y[p2.getX()] + height / 2);
 		}
 	}
 
