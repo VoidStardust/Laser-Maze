@@ -77,8 +77,18 @@ public class DualReflectorChess extends Chess {
 	@Override
 	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
 		Graphics2D g = (Graphics2D) graphics;
-		String imageFile = "../img/empty_chess.jpg";
+		String imageFile = "./img/dual_reflector_chess_left.jpg";
+
+		switch(mode) {
+			case LEFT:
+				imageFile = "./img/dual_reflector_chess_left.png";
+				break;
+			case RIGHT:
+				imageFile = "./img/dual_reflector_chess_right.png";
+				break;
+		}
+
 		Image image = Toolkit.getDefaultToolkit().getImage(imageFile);
-		g.drawImage(image, x, y, image.getWidth(imageObserver), image.getHeight(imageObserver), imageObserver);
+		g.drawImage(image, x, y, 100, 100, imageObserver);
 	}
 }

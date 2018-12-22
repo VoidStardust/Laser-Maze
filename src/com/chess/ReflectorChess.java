@@ -63,7 +63,17 @@ public class ReflectorChess extends Chess {
 	@Override
 	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
 		Graphics2D g = (Graphics2D) graphics;
-		String imageFile = "./img/reflector_chess.png";
+		String imageFile = "./img/reflector_chess_right.png";
+
+		switch(mode) {
+			case RIGHT:
+				imageFile = "./img/reflector_chess_right.png";
+				break;
+			case LEFT:
+				imageFile = "./img/reflector_chess_left.png";
+				break;
+		}
+
 		Image image = Toolkit.getDefaultToolkit().getImage(imageFile);
 		g.drawImage(image, x, y, 100, 100, imageObserver);
 	}

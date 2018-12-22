@@ -70,7 +70,17 @@ public class ChannelChess extends Chess {
 	@Override
 	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
 		Graphics2D g = (Graphics2D) graphics;
-		String imageFile = "./img/channel_chess.png";
+		String imageFile = "./img/channel_chess_vertical.png";
+
+		switch(mode) {
+			case HORIZONTAL:
+				imageFile = "./img/channel_chess_horizontal.png";
+				break;
+			case VERTICAL:
+				imageFile = "./img/channel_chess_vertical.png";
+				break;
+		}
+
 		Image image = Toolkit.getDefaultToolkit().getImage(imageFile);
 		g.drawImage(image, x, y, 100, 100, imageObserver);
 	}

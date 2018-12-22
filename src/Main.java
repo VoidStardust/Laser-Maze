@@ -25,7 +25,7 @@ class Frame extends JFrame {
 
 		Container container = getContentPane();
 		GamePanel gamePanel = new GamePanel();
-		gamePanel.setBoard(Rounds.getInstance().solutions.get(4));
+		gamePanel.setBoard(Rounds.getInstance().solutions.get(18));
 		container.add(gamePanel);
 	}
 }

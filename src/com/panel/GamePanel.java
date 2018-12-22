@@ -48,13 +48,14 @@ public class GamePanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		int x = e.getX() / 100;
-		int y = e.getY() / 100;
-		System.out.println(x + " " + y);
-//		if(selectedChess.getType() != ChessType.EmptyChess) {
-			board.addChess(selectedChess, y, x);
+		int y = e.getX() / 100;
+		int x = e.getY() / 100;
+
+		if(selectedChess.getType() != ChessType.EmptyChess) {
+			board.addChess(selectedChess, x, y);
 			board.formRoute();
-//		}
+		}
+
 		repaint();
 	}
 

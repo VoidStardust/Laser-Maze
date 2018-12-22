@@ -18,7 +18,7 @@ public class EmitChess extends Chess {
 	@Override
 	public void rotate() {
 		if(canRotate) {
-			Mode modeArray[] = {Mode.UP, Mode.RIGHT, Mode.DOWN, Mode.LEFT};
+			Mode[] modeArray = {Mode.UP, Mode.RIGHT, Mode.DOWN, Mode.LEFT};
 			int i;
 			for(i = 0; i < 4; i++)
 				if(mode == modeArray[i])

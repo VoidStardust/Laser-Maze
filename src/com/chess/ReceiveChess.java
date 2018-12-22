@@ -102,7 +102,23 @@ public class ReceiveChess extends Chess {
 	@Override
 	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
 		Graphics2D g = (Graphics2D) graphics;
-		String imageFile = "./img/receive_chess.png";
+		String imageFile = "./img/receive_chess_leftdown.png";
+
+		switch(mode) {
+			case LEFTDOWN:
+				imageFile = "./img/receive_chess_leftdown.png";
+				break;
+			case RIGHTLEFT:
+				imageFile = "./img/receive_chess_rightleft.png";
+				break;
+			case LEFTUP:
+				imageFile = "./img/receive_chess_leftup.png";
+				break;
+			case RIGHTRIGHT:
+				imageFile = "./img/receive_chess_rightright.png";
+				break;
+		}
+
 		Image image = Toolkit.getDefaultToolkit().getImage(imageFile);
 		g.drawImage(image, x, y, 100, 100, imageObserver);
 	}

@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.image.ImageObserver;
 
 public class BlockChess extends Chess {
+	private static final Image image = Toolkit.getDefaultToolkit().getImage("./img/block_chess.png");
+
 	@Override
 	public void rotate() {
 	}
@@ -44,8 +46,6 @@ public class BlockChess extends Chess {
 	@Override
 	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
 		Graphics2D g = (Graphics2D) graphics;
-		String imageFile = "./img/block_chess.png";
-		Image image = Toolkit.getDefaultToolkit().getImage(imageFile);
 		g.drawImage(image, x, y, 100, 100, imageObserver);
 	}
 }
