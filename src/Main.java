@@ -1,5 +1,6 @@
 import com.board.Rounds;
 import com.chess.BlockChess;
+import com.chess.ReceiveChess;
 import com.panel.GamePanel;
 
 import javax.swing.*;
@@ -24,7 +25,7 @@ class Frame extends JFrame {
 		Container container = getContentPane();
 		GamePanel gamePanel = new GamePanel();
 		gamePanel.setBoard(Rounds.getInstance().rounds.get(18));
-		gamePanel.setSelectedChess(new BlockChess());
+		gamePanel.setSelectedChess(new ReceiveChess());
 		container.add(gamePanel);
 	}
 }

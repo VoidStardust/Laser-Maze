@@ -56,7 +56,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
 		if(board.board[x][y].getType() == ChessType.EmptyChess && selectedChess.getType() != ChessType.EmptyChess) {
 			board.addChess(selectedChess, x, y);
-			//selectedChess = new EmptyChess();
+			selectedChess = new EmptyChess();
 		} else {
 			board.board[x][y].rotate();
 		}
