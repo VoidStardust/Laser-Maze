@@ -19,13 +19,13 @@ public class Main {
 class Frame extends JFrame {
 
 	Frame() {
-		setTitle("Simple Count Frame");
-		setSize(500, 530);
+		setTitle("Laser Maze");
+		setSize(520, 540);
 		setResizable(false);
 
 		Container container = getContentPane();
 		GamePanel gamePanel = new GamePanel();
-		gamePanel.setBoard(Rounds.getInstance().solutions.get(6));
+		gamePanel.setBoard(Rounds.getInstance().solutions.get(4));
 		container.add(gamePanel);
 	}
 }

@@ -26,21 +26,22 @@ public class Painter {
 		{
 			for(int j = 0; j < 5; j++)
 			{
-				board.board[i][j].DrawChess(graphics, i * 100, j * 100, imageObserver);
+				board.board[j][i].DrawChess(graphics, i * 100, j * 100, imageObserver);
 			}
 		}
 	}
 
 	private static void DrawRoute(Graphics graphics, Route route) {
+		Graphics2D g = (Graphics2D) graphics;
 		ArrayList<Position> line = route.line;
-		graphics.setColor(Color.red);
+		g.setColor(Color.red);
+		BasicStroke bs1 = new BasicStroke(5);
+		g.setStroke(bs1);
 		for(int i = 0; i + 1 < line.size(); i++) {
 			Position p1 = line.get(i);
 			Position p2 = line.get(i + 1);
-			graphics.drawLine(p1.getX() * 100 + 50,
-					          p1.getY() * 100 + 50,
-					          p2.getX() * 100 + 50,
-					          p2.getY() * 100 + 50);
+			g.drawLine(p1.getY() * 100 + 50, p1.getX() * 100 + 50,
+					p2.getY() * 100 + 50, p2.getX() * 100 + 50);
 		}
 	}
 
