@@ -1,5 +1,8 @@
 import com.board.Board;
 import com.board.GameFrame;
+import com.board.Rounds;
+import com.chess.ChannelChess;
+import com.panel.GamePanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +10,9 @@ import java.awt.*;
 public class Main {
 
 	public static void main(String[] args) {
-		GameFrame gf = new GameFrame();
+		Frame gf = new Frame();
+		gf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		gf.setVisible(true);
 	}
 }
 
@@ -15,17 +20,12 @@ class Frame extends JFrame {
 
 	Frame() {
 		setTitle("Simple Count Frame");
-		setSize(400, 300);
+		setSize(500, 530);
+		setResizable(false);
 
 		Container container = getContentPane();
-	}
-}
-
-class Panel extends JPanel {
-
-	//Board board();
-
-	Panel() {
-
+		GamePanel gamePanel = new GamePanel();
+		gamePanel.setBoard(Rounds.getInstance().solutions.get(6));
+		container.add(gamePanel);
 	}
 }

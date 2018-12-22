@@ -5,10 +5,10 @@ import com.chess.*;
 import java.util.ArrayList;
 
 public class Rounds {
-	public ArrayList<Board> rounds;
-	public ArrayList<Board> solutions;
+	public ArrayList<Board> rounds = new ArrayList<>();
+	public ArrayList<Board> solutions = new ArrayList<>();
 
-	private Rounds() {
+	public Rounds() {
 		initRounds();
 		initSolutions();
 	}
@@ -391,7 +391,5 @@ public class Rounds {
 		board20.addChess(new DualReflectorChess(), 3, 2);
 		board20.addChess(new ReceiveChess(), 1, 4);
 		rounds.add(board20);
-
 	}
-
 }

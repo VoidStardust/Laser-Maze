@@ -1,11 +1,14 @@
 package com.painter;
 
 import com.board.Board;
+import com.board.Position;
 import com.board.Rounds;
+import com.board.Route;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.ImageObserver;
+import java.util.ArrayList;
 
 public class Painter {
 
@@ -14,8 +17,11 @@ public class Painter {
 	}
 
 	public static void DrawBoard(Graphics graphics, int n, ImageObserver imageObserver) {
-//		graphics.setColor(Color.BLACK);
 		Board board = Rounds.getInstance().rounds.get(n);
+		DrawBoard(graphics, board, imageObserver);
+	}
+
+	public static void DrawBoard(Graphics graphics, Board board, ImageObserver imageObserver) {
 		for(int i = 0; i < 5; i++)
 		{
 			for(int j = 0; j < 5; j++)
@@ -25,7 +31,23 @@ public class Painter {
 		}
 	}
 
-	public static void DrawRoute(Graphics graphics, Board board) {
-		//
+	private static void DrawRoute(Graphics graphics, Route route) {
+		ArrayList<Position> line = route.line;
+		graphics.setColor(Color.red);
+		for(int i = 0; i + 1 < line.size(); i++) {
+			Position p1 = line.get(i);
+			Position p2 = line.get(i + 1);
+			graphics.drawLine(p1.getX() * 100 + 50,
+					          p1.getY() * 100 + 50,
+					          p2.getX() * 100 + 50,
+					          p2.getY() * 100 + 50);
+		}
+	}
+
+	public static void DrawRoutes(Graphics graphics, Board board) {
+		ArrayList<Route> routes = board.getRoute();
+		for(Route route : routes) {
+			DrawRoute(graphics, route);
+		}
 	}
 }
