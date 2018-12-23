@@ -9,11 +9,11 @@ public class Board {
 	public Chess[][] board;
 	private ArrayList <VisitInfo> visitInfos;
 	private ArrayList <Route> routeArray;
+	private ArrayList <Chess> unusedChess;
 	private Stack <Position> positionStack;
 	int level;
 	int roundNum;
 	Position start;
-	Position end;
 	Position checkPoint;
 
 	public Board(int level, int roundNum) {
@@ -21,10 +21,10 @@ public class Board {
 		routeArray = new ArrayList <Route>();
 		visitInfos = new ArrayList <VisitInfo>();
 		positionStack = new Stack <Position>();
+		unusedChess=new ArrayList<Chess>();
 		initChess();
 		this.level = level;
 		start = new Position(-1, -1);
-		end = new Position(-1, -1);
 		checkPoint = new Position(-1, -1);
 	}
 
@@ -62,14 +62,18 @@ public class Board {
 		start = new Position(x, y);
 	}
 
-	public void setEnd(int x, int y) {
-		end = new Position(x, y);
-	}
-
 	public ArrayList <Route> getRoute() {
 		return routeArray;
 	}
-
+	
+	public void addUnusedChess(Chess chess) {
+		unusedChess.add(chess);
+	}
+	
+	public ArrayList <Chess> getUnusedChess(){
+		return unusedChess;
+	}
+	
 	public boolean formRoute() {
 		int x = start.getX();
 		int y = start.getY();
@@ -191,10 +195,6 @@ public class Board {
 	public boolean isCorrect() {
 		boolean res;
 		res = formRoute();
-		/*if(!res) {
-			while(!routeArray.isEmpty())
-				routeArray.remove(routeArray.size()-1);
-		}*/
 		return res;
 	}
 
