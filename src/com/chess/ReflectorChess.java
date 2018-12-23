@@ -14,7 +14,7 @@ public class ReflectorChess extends Chess {
 
 	public ReflectorChess() {
 		canRotate = true;
-		mode = Mode.LEFT;
+		mode = Mode.NULL;
 	}
 
 	@Override
@@ -65,7 +65,7 @@ public class ReflectorChess extends Chess {
 	@Override
 	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
 		Graphics2D g = (Graphics2D) graphics;
-		String imageFile = "./img/reflector_chess_right.png";
+		String imageFile = "./img/reflector_chess.png";
 
 		switch(mode) {
 			case RIGHT:

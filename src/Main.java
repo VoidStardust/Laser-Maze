@@ -1,5 +1,6 @@
 import com.board.Rounds;
 import com.chess.BlockChess;
+import com.chess.Chess;
 import com.chess.DualReflectorChess;
 import com.chess.ReceiveChess;
 import com.panel.GamePanel;
@@ -25,8 +26,10 @@ class Frame extends JFrame {
 
 		Container container = getContentPane();
 		GamePanel gamePanel = new GamePanel();
-		gamePanel.setBoard(Rounds.getInstance().rounds.get(17));
-		gamePanel.setSelectedChess(new DualReflectorChess());
+		gamePanel.setBoard(Rounds.getInstance().rounds.get(15));
+		Chess chess = new DualReflectorChess();
+		chess.rotate();
+		gamePanel.setSelectedChess(chess);
 		container.add(gamePanel);
 	}
 }

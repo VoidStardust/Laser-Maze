@@ -13,7 +13,7 @@ public class DualReflectorChess extends Chess {
 
 	public DualReflectorChess() {
 		canRotate = true;
-		mode = Mode.LEFT;
+		mode = Mode.NULL;
 	}
 
 	@Override
@@ -79,7 +79,7 @@ public class DualReflectorChess extends Chess {
 	@Override
 	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
 		Graphics2D g = (Graphics2D) graphics;
-		String imageFile = "./img/dual_reflector_chess_left.jpg";
+		String imageFile = "./img/dual_reflector_chess.png";
 
 		switch(mode) {
 			case LEFT:

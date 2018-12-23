@@ -14,7 +14,7 @@ public class EmitChess extends Chess {
 
 	public EmitChess() {
 		canRotate = true;
-		mode = Mode.UP;
+		mode = Mode.NULL;
 	}
 
 	@Override
@@ -47,7 +47,7 @@ public class EmitChess extends Chess {
 	@Override
 	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
 		Graphics2D g = (Graphics2D) graphics;
-		String imageFile = "./img/emit_chess_up.png";
+		String imageFile = "./img/emit_chess.png";
 
 		switch(mode) {
 			case RIGHT:

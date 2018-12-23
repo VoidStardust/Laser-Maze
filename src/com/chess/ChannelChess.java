@@ -20,7 +20,7 @@ public class ChannelChess extends Chess {
 
 	public ChannelChess() {
 		canRotate = true;
-		mode = Mode.HORIZONTAL;
+		mode = Mode.NULL;
 	}
 
 	@Override
@@ -72,7 +72,7 @@ public class ChannelChess extends Chess {
 	@Override
 	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
 		Graphics2D g = (Graphics2D) graphics;
-		String imageFile = "./img/channel_chess_vertical.png";
+		String imageFile = "./img/channel_chess.png";
 
 		switch(mode) {
 			case HORIZONTAL:

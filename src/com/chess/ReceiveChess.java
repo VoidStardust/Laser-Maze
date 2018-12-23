@@ -17,7 +17,6 @@ public class ReceiveChess extends Chess {
 	public ReceiveChess() {
 		canRotate = true;
 		received = false;
-//		mode = Mode.LEFTDOWN;
 		mode = Mode.NULL;
 	}
 
