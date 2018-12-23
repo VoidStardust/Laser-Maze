@@ -14,7 +14,7 @@ public class EmitChess extends Chess {
 
 	public EmitChess() {
 		canRotate = true;
-		mode = Mode.UP;
+		mode = Mode.NULL;
 	}
 
 	@Override

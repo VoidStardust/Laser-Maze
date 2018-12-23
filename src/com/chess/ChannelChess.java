@@ -20,7 +20,7 @@ public class ChannelChess extends Chess {
 
 	public ChannelChess() {
 		canRotate = true;
-		mode = Mode.HORIZONTAL;
+		mode = Mode.NULL;
 	}
 
 	@Override

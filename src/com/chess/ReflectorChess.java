@@ -14,7 +14,7 @@ public class ReflectorChess extends Chess {
 
 	public ReflectorChess() {
 		canRotate = true;
-		mode = Mode.LEFT;
+		mode = Mode.NULL;
 	}
 
 	@Override

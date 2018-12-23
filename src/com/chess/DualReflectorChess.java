@@ -13,7 +13,7 @@ public class DualReflectorChess extends Chess {
 
 	public DualReflectorChess() {
 		canRotate = true;
-		mode = Mode.LEFT;
+		mode = Mode.NULL;
 	}
 
 	@Override
