@@ -1,8 +1,5 @@
 import com.board.Rounds;
-import com.chess.BlockChess;
-import com.chess.Chess;
-import com.chess.DualReflectorChess;
-import com.chess.ReceiveChess;
+import com.chess.*;
 import com.panel.GamePanel;
 
 import javax.swing.*;
