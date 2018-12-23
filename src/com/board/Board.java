@@ -108,10 +108,14 @@ public class Board {
 	}
 
 	private boolean formRoute(int x, int y, Direction dir, Route rt) {
-		if(!inArea(x, y))
+		if(!inArea(x, y)) {
+			routeArray.add(rt);
 			return false;
-		if(visited(new VisitInfo(new Position(x, y), dir)))
+		}
+		if(visited(new VisitInfo(new Position(x, y), dir))) {
+			routeArray.add(rt);
 			return false;
+		}
 		rt.line.add(new Position(x, y));
 		visitInfos.add(new VisitInfo(new Position(x, y), dir));
 		Chess chess = board[x][y];
@@ -149,6 +153,7 @@ public class Board {
 				dir = Direction.LEFT;
 				break;
 			default:
+				routeArray.add(rt);
 				return false;
 		}
 		if(chess instanceof DualReflectorChess) {
@@ -172,11 +177,12 @@ public class Board {
 					tmpdir = Direction.LEFT;
 					break;
 				default:
+					routeArray.add(rt);
 					return false;
 			}
-			res = res && formRoute(tmpx, tmpy, tmpdir, newRt);
+			res = formRoute(tmpx, tmpy, tmpdir, newRt) && res;
 		}
-		res = res && formRoute(x, y, dir, rt);
+		res = formRoute(x, y, dir, rt) && res;
 		if(checkPoint.getX() != -1 && checkPoint.getY() != -1)
 			res = res && ((ChannelChess) board[checkPoint.getX()][checkPoint.getY()]).used();
 		return res;
@@ -246,6 +252,11 @@ public class Board {
 				System.out.println(pos);
 			}
 		}
+	}
+
+	public void update() {
+		routeArray.clear();
+		visitInfos.clear();
 	}
 }
 

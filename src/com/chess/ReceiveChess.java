@@ -17,13 +17,15 @@ public class ReceiveChess extends Chess {
 	public ReceiveChess() {
 		canRotate = true;
 		received = false;
-		mode = Mode.LEFTDOWN;
+//		mode = Mode.LEFTDOWN;
+		mode = Mode.NULL;
 	}
 
 	@Override
 	public void rotate() {
 		if(canRotate) {
-			Mode modeArray[] = {Mode.LEFTDOWN, Mode.RIGHTLEFT, Mode.LEFTUP, Mode.RIGHTRIGHT};
+			received = false;
+			Mode[] modeArray = {Mode.LEFTDOWN, Mode.RIGHTLEFT, Mode.LEFTUP, Mode.RIGHTRIGHT};
 			int i;
 			for(i = 0; i < 4; i++)
 				if(mode == modeArray[i])
@@ -104,7 +106,7 @@ public class ReceiveChess extends Chess {
 	@Override
 	public void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver) {
 		Graphics2D g = (Graphics2D) graphics;
-		String imageFile = "./img/receive_chess_leftdown.png";
+		String imageFile = "./img/receive_chess.png";
 
 		switch(mode) {
 			case LEFTDOWN:

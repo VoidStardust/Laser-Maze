@@ -23,11 +23,13 @@ public class GamePanel extends JPanel implements MouseListener {
 
 	public void setBoard(int n) {
 		board = Rounds.getInstance().rounds.get(n);
+		board.update();
 		board.formRoute();
 	}
 
 	public void setBoard(Board board) {
 		this.board = board;
+		this.board.update();
 		this.board.formRoute();
 	}
 
@@ -61,6 +63,7 @@ public class GamePanel extends JPanel implements MouseListener {
 			board.board[x][y].rotate();
 		}
 
+		board.update();
 		board.formRoute();
 		repaint();
 	}
