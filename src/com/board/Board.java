@@ -7,10 +7,10 @@ import com.chess.*;
 
 public class Board {
 	public Chess[][] board;
-	private ArrayList <VisitInfo> visitInfos;
-	private ArrayList <Route> routeArray;
-	private ArrayList <Chess> unusedChess;
-	private Stack <Position> positionStack;
+	private ArrayList<VisitInfo> visitInfos;
+	private ArrayList<Route> routeArray;
+	private ArrayList<Chess> unusedChess;
+	private Stack<Position> positionStack;
 	int level;
 	int roundNum;
 	Position start;
@@ -18,10 +18,10 @@ public class Board {
 
 	public Board(int level, int roundNum) {
 		board = new Chess[5][5];
-		routeArray = new ArrayList <Route>();
-		visitInfos = new ArrayList <VisitInfo>();
-		positionStack = new Stack <Position>();
-		unusedChess=new ArrayList<Chess>();
+		routeArray = new ArrayList<Route>();
+		visitInfos = new ArrayList<VisitInfo>();
+		positionStack = new Stack<Position>();
+		unusedChess = new ArrayList<Chess>();
 		initChess();
 		this.level = level;
 		start = new Position(-1, -1);
@@ -62,7 +62,7 @@ public class Board {
 		start = new Position(x, y);
 	}
 
-	public ArrayList <Route> getRoute() {
+	public ArrayList<Route> getRoute() {
 		return routeArray;
 	}
 	
@@ -70,7 +70,7 @@ public class Board {
 		unusedChess.add(chess);
 	}
 	
-	public ArrayList <Chess> getUnusedChess(){
+	public ArrayList<Chess> getUnusedChess(){
 		return unusedChess;
 	}
 	
