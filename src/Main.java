@@ -23,7 +23,7 @@ class Frame extends JFrame {
 
 		Container container = getContentPane();
 		GamePanel gamePanel = new GamePanel();
-		gamePanel.setBoard(Rounds.getInstance().rounds.get(15));
+		gamePanel.setBoard(Rounds.getInstance().rounds.get(18));
 		Chess chess = new DualReflectorChess();
 		chess.rotate();
 		gamePanel.setSelectedChess(chess);
