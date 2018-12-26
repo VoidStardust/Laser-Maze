@@ -18,7 +18,7 @@ class Frame extends JFrame {
 
 	Frame() {
 		setTitle("Laser Maze");
-		setSize(517, 540);
+		setSize(700, 540);
 		setResizable(false);
 
 		Container container = getContentPane();
