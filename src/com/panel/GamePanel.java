@@ -45,22 +45,33 @@ public class GamePanel extends JPanel implements MouseListener {
 		super.paintComponent(g);
 		Painter.DrawBoard(g, board, this);
 		Painter.DrawRoutes(g, board);
+		Painter.DrawUnused(g, board.getUnusedChess(), this);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		int y = e.getX() / 100;
-		int x = e.getY() / 100;
+		int x = e.getX();
+		int y = e.getY();
 
-		if(x > 5 || y > 5)
-			return;
+		int ret = inArea(x, y);
 
+		System.out.println(ret);
 
-		if(board.board[x][y].getType() == ChessType.EmptyChess && selectedChess.getType() != ChessType.EmptyChess) {
-			board.addChess(selectedChess, x, y);
-			selectedChess = new EmptyChess();
-		} else {
-			board.board[x][y].rotate();
+		if(ret == 0) {
+			x /= 100;
+			y /= 100;
+
+			if(selectedChess.getType() != ChessType.EmptyChess && board.board[y][x].getType() == ChessType.EmptyChess) {
+				board.addChess(selectedChess, y, x);
+				selectedChess = new EmptyChess();
+			} else {
+				board.board[y][x].rotate();
+			}
+		}
+		else if(ret == 1) {
+			y /= 100;
+			System.out.println(y);
+			selectedChess = board.getUnusedChess().get(y);
 		}
 
 		board.update();
@@ -86,5 +97,15 @@ public class GamePanel extends JPanel implements MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 
+	}
+
+	private static int inArea(int x, int y) {
+		if(x >= 0 && y >= 0 && x <= 500 && y <= 500) {
+			return 0;
+		}
+		else if(x >= 500) {
+			return 1;
+		}
+		return 2;
 	}
 }
