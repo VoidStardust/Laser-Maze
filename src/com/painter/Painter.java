@@ -4,6 +4,7 @@ import com.board.Board;
 import com.board.Position;
 import com.board.Rounds;
 import com.board.Route;
+import com.chess.Chess;
 
 import java.awt.*;
 import java.awt.image.ImageObserver;
@@ -53,6 +54,14 @@ public class Painter {
 		ArrayList<Route> routes = board.getRoute();
 		for(Route route : routes) {
 			DrawRoute(graphics, route);
+		}
+	}
+
+	public static void DrawUnused(Graphics graphics, ArrayList<Chess> unusedChess, ImageObserver imageObserver) {
+		int pos = 0;
+		for(Chess chess : unusedChess) {
+			chess.DrawChess(graphics, 550, pos, imageObserver);
+			pos += height;
 		}
 	}
 }
