@@ -24,8 +24,13 @@ public class GamePanel extends JPanel implements MouseListener {
 		this.addMouseListener(this);
 	}
 
-	public void setBoard(int n) {
+	public void setRound(int n) {
 		board = Rounds.getInstance().rounds.get(n);
+		board.update();
+	}
+	
+	public void setSolution(int n) {
+		board = Rounds.getInstance().solutions.get(n);
 		board.update();
 	}
 
