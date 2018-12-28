@@ -1,7 +1,9 @@
 package com.panel;
 
 import com.board.Board;
+
 import com.board.Rounds;
+
 import com.chess.Chess;
 import com.chess.ChessType;
 import com.chess.EmptyChess;
@@ -11,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 
 public class GamePanel extends JPanel implements MouseListener {
 
@@ -24,13 +27,11 @@ public class GamePanel extends JPanel implements MouseListener {
 	public void setBoard(int n) {
 		board = Rounds.getInstance().rounds.get(n);
 		board.update();
-		board.formRoute();
 	}
 
 	public void setBoard(Board board) {
 		this.board = board;
 		this.board.update();
-		this.board.formRoute();
 	}
 
 	public Board getBoard() {
@@ -55,7 +56,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
 		int ret = inArea(x, y);
 
-		System.out.println(ret);
+		//System.out.println(ret);
 
 		if(ret == 0) {
 			x /= 100;
@@ -70,12 +71,11 @@ public class GamePanel extends JPanel implements MouseListener {
 		}
 		else if(ret == 1) {
 			y /= 100;
-			System.out.println(y);
-			selectedChess = board.getUnusedChess().get(y);
+			//System.out.println(y);
+			selectedChess = (Chess) board.getUnusedChess().get(y).clone();
 		}
 
 		board.update();
-		board.formRoute();
 		repaint();
 	}
 
