@@ -27,10 +27,8 @@ public class Painter {
 	}
 
 	public static void DrawBoard(Graphics graphics, Board board, ImageObserver imageObserver) {
-		for(int j = 0; j < 5; j++)
-		{
-			for(int i = 0; i < 5; i++)
-			{
+		for(int j = 0; j < 5; j++) {
+			for(int i = 0; i < 5; i++) {
 				board.board[j][i].DrawChess(graphics, X[i], Y[j], imageObserver);
 			}
 		}
@@ -38,7 +36,7 @@ public class Painter {
 
 	private static void DrawRoute(Graphics graphics, Route route) {
 		Graphics2D g = (Graphics2D) graphics;
-		ArrayList<Position> line = route.line;
+		ArrayList <Position> line = route.line;
 		g.setColor(Color.red);
 		BasicStroke bs1 = new BasicStroke(5);
 		g.setStroke(bs1);
@@ -51,13 +49,13 @@ public class Painter {
 	}
 
 	public static void DrawRoutes(Graphics graphics, Board board) {
-		ArrayList<Route> routes = board.getRoute();
+		ArrayList <Route> routes = board.getRoute();
 		for(Route route : routes) {
 			DrawRoute(graphics, route);
 		}
 	}
 
-	public static void DrawUnused(Graphics graphics, ArrayList<Chess> unusedChess, ImageObserver imageObserver) {
+	public static void DrawUnused(Graphics graphics, ArrayList <Chess> unusedChess, ImageObserver imageObserver) {
 		int pos = 0;
 		for(Chess chess : unusedChess) {
 			chess.DrawChess(graphics, 550, pos, imageObserver);

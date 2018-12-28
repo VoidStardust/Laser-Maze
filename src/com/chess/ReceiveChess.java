@@ -7,9 +7,11 @@ import java.awt.image.ImageObserver;
 
 public class ReceiveChess extends Chess {
 	private boolean received;
+
 	public void reset() {
-		received=false;
+		received = false;
 	}
+
 	public ReceiveChess(Mode mode) {
 		this.canRotate = false;
 		this.mode = mode;

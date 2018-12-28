@@ -16,19 +16,19 @@ public abstract class Chess implements Cloneable {
 	public abstract ChessType getType();
 
 	public abstract void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver);
-	
+
 	public void resetMode() {
-		mode=Mode.NULL;
+		mode = Mode.NULL;
 	}
-	
+
 	@Override
-	public Object clone() { 
-        Chess chess = null; 
-        try{ 
-            chess = (Chess)super.clone(); 
-        }catch(CloneNotSupportedException e) { 
-            e.printStackTrace(); 
-        } 
-        return chess; 
-    } 
+	public Object clone() {
+		Chess chess = null;
+		try {
+			chess = (Chess) super.clone();
+		} catch(CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
+		return chess;
+	}
 }

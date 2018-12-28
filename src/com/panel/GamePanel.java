@@ -28,7 +28,7 @@ public class GamePanel extends JPanel implements MouseListener {
 		board = Rounds.getInstance().rounds.get(n);
 		board.update();
 	}
-	
+
 	public void setSolution(int n) {
 		board = Rounds.getInstance().solutions.get(n);
 		board.update();
@@ -73,8 +73,7 @@ public class GamePanel extends JPanel implements MouseListener {
 			} else {
 				board.board[y][x].rotate();
 			}
-		}
-		else if(ret == 1) {
+		} else if(ret == 1) {
 			y /= 100;
 			//System.out.println(y);
 			selectedChess = (Chess) board.getUnusedChess().get(y).clone();
@@ -107,8 +106,7 @@ public class GamePanel extends JPanel implements MouseListener {
 	private static int inArea(int x, int y) {
 		if(x >= 0 && y >= 0 && x <= 500 && y <= 500) {
 			return 0;
-		}
-		else if(x >= 500) {
+		} else if(x >= 500) {
 			return 1;
 		}
 		return 2;

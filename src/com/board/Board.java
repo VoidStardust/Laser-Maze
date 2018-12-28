@@ -65,15 +65,15 @@ public class Board {
 	public ArrayList<Route> getRoute() {
 		return routeArray;
 	}
-	
+
 	public void addUnusedChess(Chess chess) {
 		unusedChess.add(chess);
 	}
-	
-	public ArrayList<Chess> getUnusedChess(){
+
+	public ArrayList<Chess> getUnusedChess() {
 		return unusedChess;
 	}
-	
+
 	public boolean formRoute() {
 		int x = start.getX();
 		int y = start.getY();
@@ -117,7 +117,7 @@ public class Board {
 			//System.out.println("out of area");
 			return false;
 		}
-		System.out.println(x+","+y);
+		System.out.println(x + "," + y);
 		if(visited(new VisitInfo(new Position(x, y), dir))) {
 			routeArray.add(rt);
 			//System.out.println("visited");
@@ -203,20 +203,21 @@ public class Board {
 		res = formRoute();
 		return res;
 	}
+
 	//测试
 	public void withdraw() {
 		if(!positionStack.isEmpty()) {
 			Position pos = positionStack.pop();
 			int x = pos.getX();
 			int y = pos.getY();
-			Chess chess=(Chess)board[x][y].clone();
+			Chess chess = (Chess) board[x][y].clone();
 			chess.resetMode();
 			System.out.println(chess.getType());
 			System.out.println(chess.mode);
 			board[x][y] = new EmptyChess();
 			unusedChess.add(chess);
 		}
-		
+
 	}
 
 	public void giveSolution() {
@@ -249,8 +250,8 @@ public class Board {
 	}
 
 	public static void main(String[] args) {
-		Board board=new Board(0, 0);
-		ArrayList <Route> routeArray = board.getRoute();
+		Board board = new Board(0, 0);
+		ArrayList<Route> routeArray = board.getRoute();
 		for(Route route : routeArray) {
 			System.out.println("---");
 			for(Position pos : route.line) {
@@ -262,14 +263,14 @@ public class Board {
 	public void update() {
 		routeArray.clear();
 		visitInfos.clear();
-		for(int i=0;i<5;i++) {
-			for(int j=0;j<5;j++) {
+		for(int i = 0; i < 5; i++) {
+			for(int j = 0; j < 5; j++) {
 				if(board[i][j] instanceof ReceiveChess) {
-					ReceiveChess receiveChess=(ReceiveChess)board[i][j];
+					ReceiveChess receiveChess = (ReceiveChess) board[i][j];
 					receiveChess.reset();
 				}
 			}
-		}		
+		}
 		formRoute();
 	}
 }
