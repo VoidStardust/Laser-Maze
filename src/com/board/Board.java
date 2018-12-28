@@ -114,10 +114,13 @@ public class Board {
 	private boolean formRoute(int x, int y, Direction dir, Route rt) {
 		if(!inArea(x, y)) {
 			routeArray.add(rt);
+			//System.out.println("out of area");
 			return false;
 		}
+		System.out.println(x+","+y);
 		if(visited(new VisitInfo(new Position(x, y), dir))) {
 			routeArray.add(rt);
+			//System.out.println("visited");
 			return false;
 		}
 		rt.line.add(new Position(x, y));
@@ -127,6 +130,7 @@ public class Board {
 			chess.route(dir);
 			if(((ReceiveChess) chess).isReceived()) {
 				routeArray.add(rt);
+				//System.out.println("received");
 				return true;
 			}
 		}
@@ -158,6 +162,7 @@ public class Board {
 				break;
 			default:
 				routeArray.add(rt);
+				//System.out.println("null");
 				return false;
 		}
 		if(chess instanceof DualReflectorChess) {
@@ -182,6 +187,7 @@ public class Board {
 					break;
 				default:
 					routeArray.add(rt);
+					//System.out.println("null 2");
 					return false;
 			}
 			res = formRoute(tmpx, tmpy, tmpdir, newRt) && res;
@@ -197,14 +203,20 @@ public class Board {
 		res = formRoute();
 		return res;
 	}
-
+	//测试
 	public void withdraw() {
 		if(!positionStack.isEmpty()) {
 			Position pos = positionStack.pop();
 			int x = pos.getX();
 			int y = pos.getY();
+			Chess chess=(Chess)board[x][y].clone();
+			chess.resetMode();
+			System.out.println(chess.getType());
+			System.out.println(chess.mode);
 			board[x][y] = new EmptyChess();
+			unusedChess.add(chess);
 		}
+		
 	}
 
 	public void giveSolution() {
@@ -237,15 +249,8 @@ public class Board {
 	}
 
 	public static void main(String[] args) {
-		Board board17 = new Board(4, 16);
-		board17.addChess(new EmitChess(Mode.LEFT), 3, 3);
-		board17.addChess(new DualReflectorChess(Mode.RIGHT), 3, 2);
-		board17.addChess(new ReceiveChess(Mode.LEFTUP), 4, 2);
-		board17.addChess(new ReflectorChess(Mode.LEFT), 3, 0);
-		board17.addChess(new ReflectorChess(Mode.RIGHT), 1, 0);
-		board17.addChess(new ReflectorChess(Mode.LEFT), 1, 2);
-		System.out.println(board17.isCorrect());
-		ArrayList <Route> routeArray = board17.getRoute();
+		Board board=new Board(0, 0);
+		ArrayList <Route> routeArray = board.getRoute();
 		for(Route route : routeArray) {
 			System.out.println("---");
 			for(Position pos : route.line) {
@@ -257,6 +262,15 @@ public class Board {
 	public void update() {
 		routeArray.clear();
 		visitInfos.clear();
+		for(int i=0;i<5;i++) {
+			for(int j=0;j<5;j++) {
+				if(board[i][j] instanceof ReceiveChess) {
+					ReceiveChess receiveChess=(ReceiveChess)board[i][j];
+					receiveChess.reset();
+				}
+			}
+		}		
+		formRoute();
 	}
 }
 
