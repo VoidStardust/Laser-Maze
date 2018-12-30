@@ -1,4 +1,4 @@
-package gameframe3;
+package com.frame;
 
 public class Main {
 	

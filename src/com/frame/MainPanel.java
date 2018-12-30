@@ -1,4 +1,4 @@
-package gameframe3;
+package com.frame;
 
 import java.awt.CardLayout;
 
@@ -19,9 +19,9 @@ class MainPanel extends JPanel {
 	}
 	
 	private void initMain() {
-		menupanel = new MenuPanel((new ImageIcon("src/pic1/background.jpg")).getImage(), MainPanel.this);
+		menupanel = new MenuPanel((new ImageIcon("./img/background.jpg")).getImage(), MainPanel.this);
 		basepanel = new BasePanel(MainPanel.this);
-		levelpanel = new LevelPanel((new ImageIcon("src/pic1/level.jpg")).getImage(), MainPanel.this, basepanel);
+		levelpanel = new LevelPanel((new ImageIcon("./img/level.jpg")).getImage(), MainPanel.this, basepanel);
 
 		add(menupanel);
 		add(levelpanel);

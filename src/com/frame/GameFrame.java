@@ -1,4 +1,4 @@
-package gameframe3;
+package com.frame;
 
 import java.awt.Container;
 import java.awt.Dimension;

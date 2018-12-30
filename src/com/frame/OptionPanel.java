@@ -1,4 +1,4 @@
-package gameframe3;
+package com.frame;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -38,7 +38,7 @@ class OptionPanel extends JPanel implements MouseListener, MouseMotionListener {
 		icon = new ImageIcon[5];
 		
 		for(int i = 0; i < 5; i++) {
-			icon[i] = new ImageIcon("src/pic1/op" + (i + 1) + ".jpg");
+			icon[i] = new ImageIcon("./img/op" + (i + 1) + ".jpg");
 			label[i] = new JLabel();
 			label[i].setIcon(icon[i]);
 			label[i].setVisible(false);

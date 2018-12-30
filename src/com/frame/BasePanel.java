@@ -1,4 +1,4 @@
-package gameframe3;
+package com.frame;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
@@ -33,8 +33,8 @@ class BasePanel extends JPanel {
 	}
 	
 	private void initBase() {
-		optionpanel = new OptionPanel((new ImageIcon("src/pic1/option1.jpg")).getImage(), mainpanel, BasePanel.this);
-		gamepanel = new GamePanel((new ImageIcon("src/pic1/white.jpg")).getImage());
+		optionpanel = new OptionPanel((new ImageIcon("./img/option1.jpg")).getImage(), mainpanel, BasePanel.this);
+		gamepanel = new GamePanel((new ImageIcon("./img/white.jpg")).getImage());
 		
 		optionpanel.setBounds(0, 0, 170, 570);
 		gamepanel.setBounds(180, 0, 720, 582);
