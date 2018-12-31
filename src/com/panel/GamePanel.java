@@ -19,6 +19,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
 	private Board board = new Board(0, 0);
 	private Chess selectedChess = new EmptyChess();
+	private static int selected;
 
 	public GamePanel() {
 		this.addMouseListener(this);
@@ -47,11 +48,15 @@ public class GamePanel extends JPanel implements MouseListener {
 		this.selectedChess = selectedChess;
 	}
 
+	public void withdraw() {
+		board.withdraw();
+	}
+
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Painter.DrawBoard(g, board, this);
 		Painter.DrawRoutes(g, board);
-		Painter.DrawUnused(g, board.getUnusedChess(), this);
+		Painter.DrawUnused(g, 550, board.getUnusedChess(), this);
 	}
 
 	@Override
@@ -69,14 +74,16 @@ public class GamePanel extends JPanel implements MouseListener {
 
 			if(selectedChess.getType() != ChessType.EmptyChess && board.board[y][x].getType() == ChessType.EmptyChess) {
 				board.addChess(selectedChess, y, x);
+				board.getUnusedChess().remove(selected);
 				selectedChess = new EmptyChess();
 			} else {
 				board.board[y][x].rotate();
 			}
 		} else if(ret == 1) {
-			y /= 100;
-			//System.out.println(y);
-			selectedChess = (Chess) board.getUnusedChess().get(y).clone();
+			selected = y / 100;
+			selectedChess = (Chess) board.getUnusedChess().get(selected).clone();
+		} else {
+			withdraw();
 		}
 
 		board.update();
@@ -85,12 +92,16 @@ public class GamePanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-
+		int x = e.getX();
+		int y = e.getY();
+		System.out.println(x + " " + y);
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-
+		int x = e.getX();
+		int y = e.getY();
+		System.out.println(x + " " + y);
 	}
 
 	@Override
@@ -106,7 +117,7 @@ public class GamePanel extends JPanel implements MouseListener {
 	private static int inArea(int x, int y) {
 		if(x >= 0 && y >= 0 && x <= 500 && y <= 500) {
 			return 0;
-		} else if(x >= 500) {
+		} else if(x >= 500 && y >= 0 && y <= 500) {
 			return 1;
 		}
 		return 2;

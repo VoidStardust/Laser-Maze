@@ -1,32 +1,13 @@
-import com.board.Rounds;
-import com.chess.*;
-import com.panel.GamePanel;
+import com.frame.GameFrame;
 
-import javax.swing.*;
-import java.awt.*;
+
+import javax.swing.JFrame;
 
 public class Main {
 
 	public static void main(String[] args) {
-		Frame gf = new Frame();
+		GameFrame gf = new GameFrame();
 		gf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gf.setVisible(true);
-	}
-}
-
-class Frame extends JFrame {
-
-	Frame() {
-		setTitle("Laser Maze");
-		setSize(700, 540);
-		setResizable(false);
-
-		Container container = getContentPane();
-		GamePanel gamePanel = new GamePanel();
-		gamePanel.setBoard(Rounds.getInstance().rounds.get(18));
-		Chess chess = new DualReflectorChess();
-		chess.rotate();
-		gamePanel.setSelectedChess(chess);
-		container.add(gamePanel);
 	}
 }

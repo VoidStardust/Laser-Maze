@@ -55,10 +55,10 @@ public class Painter {
 		}
 	}
 
-	public static void DrawUnused(Graphics graphics, ArrayList <Chess> unusedChess, ImageObserver imageObserver) {
+	public static void DrawUnused(Graphics graphics, int x, ArrayList <Chess> unusedChess, ImageObserver imageObserver) {
 		int pos = 0;
 		for(Chess chess : unusedChess) {
-			chess.DrawChess(graphics, 550, pos, imageObserver);
+			chess.DrawChess(graphics, x, pos, imageObserver);
 			pos += height;
 		}
 	}
