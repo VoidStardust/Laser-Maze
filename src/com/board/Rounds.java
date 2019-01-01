@@ -5,21 +5,31 @@ import com.chess.*;
 import java.util.ArrayList;
 
 public class Rounds {
-	public ArrayList<Board> rounds = new ArrayList<>();
-	public ArrayList<Board> solutions = new ArrayList<>();
+	private static ArrayList<Board> rounds = new ArrayList<>();
+	private static ArrayList<Board> solutions = new ArrayList<>();
 
 	public Rounds() {
-		initRounds();
-		initSolutions();
+		init();
 	}
-
+	public static Board getRound(int n) {
+		init();
+		return getInstance().rounds.get(n-1);
+	}
+	public static Board getSolution(int n) {
+		init();
+		return getInstance().solutions.get(n-1);
+	}
 	private static final Rounds missons = new Rounds();
 
 	public static Rounds getInstance() {
 		return missons;
 	}
-
-	public void initSolutions() {
+	public static void init() {
+		initRounds();
+		initSolutions();
+	}
+	public static void initSolutions() {
+		solutions.clear();
 		Board board1 = new Board(1, 0);
 		board1.addChess(new EmitChess(Mode.UP), 4, 4);
 		board1.addChess(new ReceiveChess(Mode.LEFTUP), 2, 4);
@@ -236,7 +246,8 @@ public class Rounds {
 		solutions.add(board20);
 	}
 
-	public void initRounds() {
+	public static void initRounds() {
+		rounds.clear();
 		Board board1 = new Board(1, 0);//9
 		board1.addChess(new EmitChess(), 4, 4);
 		board1.addChess(new ReflectorChess(), 2, 2);

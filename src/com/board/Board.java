@@ -6,6 +6,7 @@ import java.util.Stack;
 import com.chess.*;
 
 public class Board {
+	
 	public Chess[][] board;
 	private ArrayList<VisitInfo> visitInfos;
 	private ArrayList<Route> routeArray;
@@ -48,13 +49,16 @@ public class Board {
 		if(board[x][y] instanceof BlockChess)
 			return;
 		board[x][y] = chess;
-		if(!(chess instanceof EmptyChess))
-			positionStack.push(new Position(x, y));
 		if(chess instanceof EmitChess) {
 			setBegin(x, y);
 		}
 	}
-
+	public void addChess(int x,int y, Chess chess) {
+		addChess(chess, x, y);
+		if(!(chess instanceof EmptyChess))
+			positionStack.push(new Position(x, y));
+	}
+	
 	public void deleteChess(int x, int y) {
 		board[x][y] = new EmptyChess();
 	}
@@ -115,13 +119,13 @@ public class Board {
 	private boolean formRoute(int x, int y, Direction dir, Route rt) {
 		if(!inArea(x, y)) {
 			routeArray.add(rt);
-			//System.out.println("out of area");
+			System.out.println("out of area");
 			return false;
 		}
 		System.out.println(x + "," + y);
 		if(visited(new VisitInfo(new Position(x, y), dir))) {
 			routeArray.add(rt);
-			//System.out.println("visited");
+			System.out.println("visited");
 			return false;
 		}
 		rt.line.add(new Position(x, y));
@@ -132,7 +136,7 @@ public class Board {
 			if(((ReceiveChess) chess).isReceived()) {
 				routeArray.add(rt);
 				((ReceiveChess) chess).reset();
-				//System.out.println("received");
+				System.out.println("received");
 				return true;
 			}
 		}
@@ -201,6 +205,7 @@ public class Board {
 	}
 
 	public boolean isCorrect() {
+		visitInfos.clear();
 		boolean res;
 		res = formRoute();
 		return res;
@@ -221,16 +226,8 @@ public class Board {
 		}
 
 	}
-
-	public void giveSolution() {
-		Board solutionBoard = Rounds.getInstance().solutions.get(roundNum);
-		for(int i = 0; i < 5; i++) {
-			for(int j = 0; j < 5; j++) {
-				this.board[i][j] = solutionBoard.board[i][j];
-			}
-		}
-		//repaint
-	}
+	/*
+	
 
 	public void giveHint() {
 		Board solutionBoard = Rounds.getInstance().solutions.get(roundNum);
@@ -246,7 +243,7 @@ public class Board {
 			}
 		}
 	}
-
+	 */
 	public int giveGrade() {
 		return level * 100;
 	}
@@ -299,7 +296,8 @@ public class Board {
 class VisitInfo {
 	public Position pos;
 	public Direction dir;
-
+	
+	
 	public VisitInfo(Position pos, Direction dir) {
 		this.pos = pos;
 		this.dir = dir;
