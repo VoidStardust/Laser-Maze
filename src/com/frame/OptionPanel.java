@@ -61,8 +61,8 @@ class OptionPanel extends JPanel implements MouseListener, MouseMotionListener {
 			label[6].setFont(new Font("Times New Roman", Font.BOLD, 15));
 			label[6].setText("Score: " + basepanel.score);
 			
-			label[5].setBounds(20, 430, 60, 30);
-			label[6].setBounds(20, 480, 60, 30);
+			label[5].setBounds(20, 430, 80, 30);
+			label[6].setBounds(20, 480, 80, 30);
 			add(label[5]);
 			add(label[6]);
 			
@@ -122,19 +122,20 @@ class OptionPanel extends JPanel implements MouseListener, MouseMotionListener {
 		int x = arg0.getX(), y = arg0.getY();
 		
 		if(x < icon[0].getIconWidth() && y > 100 && y < 150) {
-		
+			basepanel.withDraw();
 		} 
 		
 		if(x < icon[1].getIconWidth() && y > 160 && y < 210) {
-			
-		} 
-		
+			//basepanel.setScore(-5);
+			basepanel.getHint();
+			basepanel.showScore();
+		}		
 		if(x < icon[2].getIconWidth() && y > 220 && y < 270) {
-			
+			basepanel.reStart();
 		} 
 		
 		if(x < icon[3].getIconWidth() && y > 280 && y < 330) {
-			
+			basepanel.giveUp();
 		} 
 		
 		if(x < icon[4].getIconWidth() && y > 340 && y < 390) {
