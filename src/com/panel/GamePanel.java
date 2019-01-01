@@ -26,18 +26,21 @@ public class GamePanel extends JPanel implements MouseListener {
 	}
 
 	public void setRound(int n) {
-		board = Rounds.getInstance().rounds.get(n);
+		board =Rounds.getRound(n);
 		board.update();
+		repaint();
 	}
 
 	public void setSolution(int n) {
-		board = Rounds.getInstance().solutions.get(n);
+		board = Rounds.getSolution(n);
 		board.update();
+		repaint();
 	}
 
 	public void setBoard(Board board) {
-		this.board = board;
+		this.board = (Board) board;
 		this.board.update();
+		repaint();
 	}
 
 	public Board getBoard() {
@@ -50,6 +53,8 @@ public class GamePanel extends JPanel implements MouseListener {
 
 	public void withdraw() {
 		board.withdraw();
+		board.update();
+		repaint();
 	}
 
 	public void paintComponent(Graphics g) {
@@ -73,7 +78,7 @@ public class GamePanel extends JPanel implements MouseListener {
 			y /= 100;
 
 			if(selectedChess.getType() != ChessType.EmptyChess && board.board[y][x].getType() == ChessType.EmptyChess) {
-				board.addChess(selectedChess, y, x);
+				board.addChess(y,x,selectedChess);
 				board.getUnusedChess().remove(selected);
 				selectedChess = new EmptyChess();
 			} else {
@@ -82,8 +87,6 @@ public class GamePanel extends JPanel implements MouseListener {
 		} else if(ret == 1) {
 			selected = y / 100;
 			selectedChess = (Chess) board.getUnusedChess().get(selected).clone();
-		} else {
-			withdraw();
 		}
 
 		board.update();
@@ -94,14 +97,14 @@ public class GamePanel extends JPanel implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		System.out.println(x + " " + y);
+		//System.out.println(x + " " + y);
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		System.out.println(x + " " + y);
+		//System.out.println(x + " " + y);
 	}
 
 	@Override
