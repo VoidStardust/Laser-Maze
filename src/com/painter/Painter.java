@@ -22,7 +22,7 @@ public class Painter {
 	}
 
 	public static void DrawBoard(Graphics graphics, int n, ImageObserver imageObserver) {
-		Board board = Rounds.getInstance().rounds.get(n);
+		Board board = Rounds.getRound(n);
 		DrawBoard(graphics, board, imageObserver);
 	}
 
