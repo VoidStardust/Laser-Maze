@@ -6,6 +6,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import com.panel.GamePanel;
 
@@ -13,6 +16,7 @@ class BasePanel extends JPanel implements MouseListener {
 	private MainPanel mainpanel;
 	private OptionPanel optionpanel;
 	private GamePanel gamepanel;
+	private GameFrame frame;
 	int round, score;
 	boolean []noSolution;
 	boolean []scoreOnce;
@@ -68,14 +72,19 @@ class BasePanel extends JPanel implements MouseListener {
 			else if(scoreOnce[round-1] == false) {
 				System.out.println("you try twice");
 			}
+			
+			int n = JOptionPane.showConfirmDialog(null, "Congratulations", "", JOptionPane.PLAIN_MESSAGE);
+			if(n == 0) {
+				round++;
+				setRound();
+			}
+			
 		} else {
 			System.out.println("wrong");
 		}
 	}
 	
-	
-	
-	private void initBase() {
+		private void initBase() {
 		optionpanel = new OptionPanel((new ImageIcon("./img/option1.jpg")).getImage(), mainpanel, BasePanel.this);
 		gamepanel = new GamePanel();
 		
