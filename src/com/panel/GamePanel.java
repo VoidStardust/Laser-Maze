@@ -2,6 +2,7 @@ package com.panel;
 
 import com.board.Board;
 
+import com.board.Position;
 import com.board.Rounds;
 
 import com.chess.Chess;
@@ -59,7 +60,9 @@ public class GamePanel extends JPanel implements MouseListener {
 
 	public void giveHint() {
 		Graphics g = getGraphics();
-		g.fillOval(100, 100, 100, 100);
+//		Position p = board.giveHint();
+		Position p = new Position(1, 1);
+		Painter.DrawCross(g, p.getX(), p.getY());
 	}
 
 	public void paintComponent(Graphics graphics) {
@@ -70,10 +73,7 @@ public class GamePanel extends JPanel implements MouseListener {
 		Painter.DrawBoard(g, board, this);
 		Painter.DrawRoutes(g, board);
 		Painter.DrawUnused(g, 550, board.getUnusedChess(), this);
-		g.setColor(Color.gray);
-//		BasicStroke bs1 = new BasicStroke(5);
-//		g.setStroke(bs1);
-		g.fillRoundRect(520, 50, 10, 400, 10, 10);
+		Painter.DrawDividing(g, 525, 50, 400);
 	}
 
 	@Override
@@ -123,12 +123,12 @@ public class GamePanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
+		giveHint();
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-
+		repaint();
 	}
 
 	private static int inArea(int x, int y) {

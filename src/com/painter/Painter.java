@@ -62,4 +62,21 @@ public class Painter {
 			pos += height;
 		}
 	}
+
+	public static void DrawCross(Graphics graphics, int x, int y) {
+		Graphics2D g = (Graphics2D) graphics;
+		g.setColor(Color.red);
+		BasicStroke bs1 = new BasicStroke(5);
+		g.setStroke(bs1);
+		g.drawLine(x * width, y * height, (x + 1) * width, (y + 1) * height);
+		g.drawLine((x + 1) * width, y * height, x * width, (y + 1) * height);
+	}
+
+	public static void DrawDividing (Graphics graphics, int x, int y, int length) {
+		Graphics2D g = (Graphics2D) graphics;
+		g.setColor(Color.gray);
+		BasicStroke bs1 = new BasicStroke(5);
+		g.setStroke(bs1);
+		g.drawLine(x, y, x, y + length);
+	}
 }
