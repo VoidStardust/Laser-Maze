@@ -6,7 +6,7 @@ import java.util.Stack;
 import com.chess.*;
 
 public class Board {
-	
+
 	public Chess[][] board;
 	private ArrayList<VisitInfo> visitInfos;
 	private ArrayList<Route> routeArray;
@@ -43,7 +43,7 @@ public class Board {
 				addChess(new EmptyChess(), i, j);
 	}
 
-	public void addChess(Chess chess, int x, int y) {
+	void addChess(Chess chess, int x, int y) {
 		if(!inArea(x, y))
 			return;
 		if(board[x][y] instanceof BlockChess)
@@ -53,12 +53,13 @@ public class Board {
 			setBegin(x, y);
 		}
 	}
-	public void addChess(int x,int y, Chess chess) {
+
+	public void addChess(int x, int y, Chess chess) {
 		addChess(chess, x, y);
 		if(!(chess instanceof EmptyChess))
 			positionStack.push(new Position(x, y));
 	}
-	
+
 	public void deleteChess(int x, int y) {
 		board[x][y] = new EmptyChess();
 	}
@@ -226,8 +227,9 @@ public class Board {
 		}
 
 	}
+
 	/*
-	
+
 
 	public void giveHint() {
 		Board solutionBoard = Rounds.getInstance().solutions.get(roundNum);
@@ -296,8 +298,8 @@ public class Board {
 class VisitInfo {
 	public Position pos;
 	public Direction dir;
-	
-	
+
+
 	public VisitInfo(Position pos, Direction dir) {
 		this.pos = pos;
 		this.dir = dir;

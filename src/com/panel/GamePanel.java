@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements MouseListener {
 	}
 
 	public void setRound(int n) {
-		board =Rounds.getRound(n);
+		board = Rounds.getRound(n);
 		board.update();
 		repaint();
 	}
@@ -57,11 +57,23 @@ public class GamePanel extends JPanel implements MouseListener {
 		repaint();
 	}
 
-	public void paintComponent(Graphics g) {
+	public void giveHint() {
+		Graphics g = getGraphics();
+		g.fillOval(100, 100, 100, 100);
+	}
+
+	public void paintComponent(Graphics graphics) {
+		Graphics2D g = (Graphics2D) graphics;
 		super.paintComponent(g);
+		g.setColor(Color.white);
+		g.fillRect(0, 0, getWidth(), getHeight());
 		Painter.DrawBoard(g, board, this);
 		Painter.DrawRoutes(g, board);
 		Painter.DrawUnused(g, 550, board.getUnusedChess(), this);
+		g.setColor(Color.gray);
+//		BasicStroke bs1 = new BasicStroke(5);
+//		g.setStroke(bs1);
+		g.fillRoundRect(520, 50, 10, 400, 10, 10);
 	}
 
 	@Override
@@ -74,19 +86,22 @@ public class GamePanel extends JPanel implements MouseListener {
 		//System.out.println(ret);
 
 		if(ret == 0) {
-			x /= 100;
-			y /= 100;
+			x /= Painter.width;
+			y /= Painter.height;
 
 			if(selectedChess.getType() != ChessType.EmptyChess && board.board[y][x].getType() == ChessType.EmptyChess) {
-				board.addChess(y,x,selectedChess);
+				board.addChess(y, x, selectedChess);
 				board.getUnusedChess().remove(selected);
 				selectedChess = new EmptyChess();
 			} else {
 				board.board[y][x].rotate();
 			}
 		} else if(ret == 1) {
-			selected = y / 100;
-			selectedChess = (Chess) board.getUnusedChess().get(selected).clone();
+			y /= Painter.height;
+			if(y < board.getUnusedChess().size()) {
+				selected = y;
+				selectedChess = (Chess) board.getUnusedChess().get(selected).clone();
+			}
 		}
 
 		board.update();
@@ -97,7 +112,6 @@ public class GamePanel extends JPanel implements MouseListener {
 	public void mousePressed(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		//System.out.println(x + " " + y);
 	}
 
 	@Override
