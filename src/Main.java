@@ -9,5 +9,6 @@ public class Main {
 		GameFrame gf = new GameFrame();
 		gf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		gf.setVisible(true);
+
 	}
 }
