@@ -150,8 +150,7 @@ class OptionPanel extends JPanel implements MouseListener, MouseMotionListener{
 		} 
 		
 		if(x < icon[1].getIconWidth() && y > 160 && y < 210) {
-			//basepanel.setScore(-5);
-			//basepanel.confirm();
+			basepanel.giveHint();
 			basepanel.showScore();
 		}		
 		if(x < icon[2].getIconWidth() && y > 220 && y < 270) {

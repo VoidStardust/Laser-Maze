@@ -78,12 +78,12 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 				if(board.board[i][j].equals(solutionBoard.board[i][j])) {
 					continue;
 				} else if(board.board[i][j].equalsIgnoreMode(solutionBoard.board[i][j])) {
-					Painter.DrawQuestion(g, i, j);
+					Painter.DrawQuestion(g, j, i);
 				} else {
 					if(board.board[i][j] instanceof EmptyChess) {
-						Painter.DrawExclamation(g, i, j);
+						Painter.DrawExclamation(g, j, i);
 					} else {
-						Painter.DrawCross(g, i, j);
+						Painter.DrawCross(g, j, i);
 					}
 				}
 			}
@@ -92,11 +92,9 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 
 	public boolean isCorrect(int n) {
 		Board solutionBoard = Rounds.getSolution(n + 1);
-		System.out.println("roundNum = " + n);
 		for(int i = 0; i < 5; i++) {
 			for(int j = 0; j < 5; j++) {
 				if(!board.board[i][j].equals(solutionBoard.board[i][j])) {
-					//System.out.println(i+"+"+j);
 					return false;
 				}
 			}

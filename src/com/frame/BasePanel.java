@@ -39,6 +39,13 @@ class BasePanel extends JPanel {
 
 	}
 
+	void  giveHint(){
+		if(score>=20) {
+			gamepanel.giveHint(round);
+			setScore(-20);
+		}
+	}
+
 	void setRound() {
 		optionpanel.label[5].setText("Round:" + round);
 		gamepanel.setRound(round);
@@ -62,6 +69,8 @@ class BasePanel extends JPanel {
 	void withDraw() {
 		gamepanel.withdraw();
 	}
+
+
 	void giveUp() {
 		gamepanel.setSolution(round);
 		System.out.println("give up");

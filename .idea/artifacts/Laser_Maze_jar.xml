@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Laser-Maze:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Laser_Maze_jar</output-path>
+    <root id="archive" name="Laser-Maze.jar">
+      <element id="module-output" name="Laser-Maze" />
+    </root>
+  </artifact>
+</component>

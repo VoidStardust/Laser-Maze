@@ -117,13 +117,11 @@ public class Board {
 	private boolean formRoute(int x, int y, Direction dir, Route rt) {
 		if(!inArea(x, y)) {
 			routeArray.add(rt);
-			System.out.println("out of area");
 			return false;
 		}
 		System.out.println(x + "," + y);
 		if(visited(new VisitInfo(new Position(x, y), dir))) {
 			routeArray.add(rt);
-			System.out.println("visited");
 			return false;
 		}
 		rt.line.add(new Position(x, y));
@@ -134,7 +132,6 @@ public class Board {
 			if(((ReceiveChess) chess).isReceived()) {
 				routeArray.add(rt);
 				((ReceiveChess) chess).reset();
-				System.out.println("received");
 				return true;
 			}
 		}
@@ -166,7 +163,6 @@ public class Board {
 				break;
 			default:
 				routeArray.add(rt);
-				//System.out.println("null");
 				return false;
 		}
 		if(chess instanceof DualReflectorChess) {
@@ -191,7 +187,6 @@ public class Board {
 					break;
 				default:
 					routeArray.add(rt);
-					//System.out.println("null 2");
 					return false;
 			}
 			res = formRoute(tmpx, tmpy, tmpdir, newRt) && res;
@@ -203,7 +198,6 @@ public class Board {
 	}
 
 
-	//测试
 	public void withdraw() {
 		if(!positionStack.isEmpty()) {
 			Position pos = positionStack.pop();
@@ -211,8 +205,6 @@ public class Board {
 			int y = pos.getY();
 			Chess chess = (Chess) board[x][y].clone();
 			chess.resetMode();
-			//System.out.println(chess.getType());
-			//System.out.println(chess.mode);
 			board[x][y] = new EmptyChess();
 			unusedChess.add(chess);
 		}
@@ -221,36 +213,6 @@ public class Board {
 
 	public int giveGrade() {
 		return level * 100;
-	}
-
-	public static void main(String[] args) {
-		Board board15 = new Board(3, 14);//43
-		board15.addChess(new EmitChess(Mode.RIGHT), 1, 1);
-		board15.addChess(new ReflectorChess(Mode.RIGHT), 1, 3);
-		board15.addChess(new ReceiveChess(Mode.LEFTUP), 3, 1);
-		board15.addChess(new ReceiveChess(Mode.RIGHTRIGHT), 4, 1);
-		board15.addUnusedChess(new ReceiveChess());
-		board15.addUnusedChess(new ReceiveChess());
-		board15.addUnusedChess(new ReceiveChess());
-		board15.addUnusedChess(new DualReflectorChess());
-		board15.addUnusedChess(new DualReflectorChess());
-		board15.withdraw();
-		board15.withdraw();
-		board15.withdraw();
-		board15.withdraw();
-		System.out.println(board15.positionStack.isEmpty());
-		board15.withdraw();
-		ArrayList<Chess> list = board15.unusedChess;
-		for(Chess chess : list) {
-			System.out.println(chess.getType());
-		}
-		/*ArrayList <Route> routeArray = board15.getRoute();
-		for(Route route : routeArray) {
-			System.out.println("---");
-			for(Position pos : route.line) {
-				System.out.println(pos);
-			}
-		}*/
 	}
 
 	public void update() {
@@ -266,6 +228,7 @@ public class Board {
 		}
 		formRoute();
 	}
+
 }
 
 class VisitInfo {
