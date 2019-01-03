@@ -19,19 +19,25 @@ class BasePanel extends JPanel implements MouseListener {
 	private GameFrame frame;
 	int round, score;
 	boolean []noSolution;
-	boolean []scoreOnce;
+	boolean []accepted;
 	public BasePanel(MainPanel mainpanel) {
 		this.mainpanel = mainpanel;
 		
 		score = 50;
-		noSolution = new boolean[10];
-		scoreOnce = new boolean[10];
+		noSolution = new boolean[20];
+		accepted = new boolean[20];
+		for(int i=0;i<20;i++) {
+			noSolution[i]=true;
+			accepted[i]=false;
+		}
 		setLayout(null);
 		initBase();
 		showScore();
 		//setFocusable(true);
 		
 		addMouseListener(this);
+		
+		
 	}
 
 	void setRound() {
@@ -56,25 +62,28 @@ class BasePanel extends JPanel implements MouseListener {
 	}
 	void giveUp() {
 		gamepanel.setSolution(round);
+		System.out.println("give up");
 		noSolution[round-1]=false;
+		System.out.println(round);
 	}
 	void getHint() {
 		if(gamepanel.getBoard().isCorrect() ) {
 			
-			if(noSolution[round-1] && scoreOnce[round-1]) {
+			if(noSolution[round-1] && !accepted[round-1]) {
 				this.score+=gamepanel.getBoard().giveGrade();
-				scoreOnce[round-1] = false;
+				accepted[round-1] = true;
 				
 			}
 			else if(noSolution[round-1] == false){
 				System.out.println("you use answer");
 			}
-			else if(scoreOnce[round-1] == false) {
+			else if(accepted[round-1] == true) {
 				System.out.println("you try twice");
 			}
 			
 			int n = JOptionPane.showConfirmDialog(null, "Congratulations", "", JOptionPane.PLAIN_MESSAGE);
 			if(n == 0) {
+				round=round%20;
 				round++;
 				setRound();
 			}
@@ -100,7 +109,7 @@ class BasePanel extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 		if(arg0.getSource() == gamepanel) {
 			if(gamepanel.getBoard().isCorrect()) {
-				System.out.println("Correct！");
+				System.out.println("Correct锛�");
 			}
 			else {
 				System.out.println("WRONG!");

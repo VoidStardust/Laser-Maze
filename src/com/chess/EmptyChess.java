@@ -38,6 +38,11 @@ public class EmptyChess extends Chess {
 	}
 
 	@Override
+	public boolean equalsIgnoreMode(Chess obj){
+		return obj instanceof EmptyChess;
+	}
+
+	@Override
 	public ChessType getType() {
 		return ChessType.EmptyChess;
 	}

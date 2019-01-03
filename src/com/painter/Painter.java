@@ -71,7 +71,12 @@ public class Painter {
 		g.drawLine(x * width, y * height, (x + 1) * width, (y + 1) * height);
 		g.drawLine((x + 1) * width, y * height, x * width, (y + 1) * height);
 	}
+	public static void DrawExclamation(Graphics graphics,int x,int y){
 
+	}
+	public static void DrawQuestion(Graphics graphics,int x,int y){
+
+	}
 	public static void DrawDividing (Graphics graphics, int x, int y, int length) {
 		Graphics2D g = (Graphics2D) graphics;
 		g.setColor(Color.gray);

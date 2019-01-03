@@ -104,6 +104,15 @@ class MenuPanel extends JPanel implements MouseListener, MouseMotionListener {
 			mainpanel.card.next(mainpanel);
 		}
 		
+		if(x > 396 && x < 386 + icon[2].getIconWidth() && y > 232 && y < 232 + icon[2].getIconHeight()) {
+			mainpanel.card.last(mainpanel);
+			mainpanel.card.previous(mainpanel);
+		}
+		
+		if(x > 525 && x < 505 + icon[3].getIconWidth() && y > 280 && y < 280 + icon[3].getIconHeight()) {
+			mainpanel.card.last(mainpanel);
+		}
+		
 		if(x > 642 && x < 632 + icon[4].getIconWidth() && y > 220 && y < 220 + icon[4].getIconHeight()) {
 			int n = JOptionPane.showConfirmDialog(null, "Are you sure to leave?", "Exit", JOptionPane.YES_NO_OPTION);
 			if(n == 0) {

@@ -102,6 +102,10 @@ public class ReceiveChess extends Chess {
 	}
 
 	@Override
+	public boolean equalsIgnoreMode(Chess obj) {
+		return obj instanceof ReceiveChess && obj.mode != this.mode;
+	}
+	@Override
 	public ChessType getType() {
 		return ChessType.ReceiveChess;
 	}

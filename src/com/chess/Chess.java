@@ -13,6 +13,8 @@ public abstract class Chess implements Cloneable {
 
 	public abstract boolean equals(Chess obj);
 
+	public abstract boolean equalsIgnoreMode(Chess obj);
+
 	public abstract ChessType getType();
 
 	public abstract void DrawChess(Graphics graphics, int x, int y, ImageObserver imageObserver);

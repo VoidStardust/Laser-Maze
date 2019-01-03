@@ -40,6 +40,11 @@ public class BlockChess extends Chess {
 	}
 
 	@Override
+	public boolean equalsIgnoreMode(Chess obj){
+		return (obj instanceof BlockChess);
+	}
+
+	@Override
 	public ChessType getType() {
 		return ChessType.BlockChess;
 	}

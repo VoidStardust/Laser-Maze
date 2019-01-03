@@ -30,7 +30,10 @@ public class ChannelChess extends Chess {
 		}
 
 	}
-
+	@Override
+	public boolean equalsIgnoreMode(Chess obj){
+		return obj instanceof ChannelChess && obj.mode != this.mode;
+	}
 	@Override
 	public Direction route(Direction dir) {
 		if(mode == Mode.HORIZONTAL) {
