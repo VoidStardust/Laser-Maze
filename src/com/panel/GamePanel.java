@@ -18,7 +18,7 @@ import java.awt.event.MouseListener;
 
 public class GamePanel extends JPanel implements MouseListener {
 
-	private Board board = new Board(0, 0);
+	private Board board ;
 	private Chess selectedChess = new EmptyChess();
 	private static int selected;
 
@@ -81,6 +81,19 @@ public class GamePanel extends JPanel implements MouseListener {
 		}
 	}
 
+	public boolean isCorrect(int n){
+		Board solutionBoard=Rounds.getSolution(n+1);
+		System.out.println("roundNum = " + n);
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				if(!board.board[i][j].equals(solutionBoard.board[i][j])){
+					//System.out.println(i+"+"+j);
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 	public void paintComponent(Graphics graphics) {
 		Graphics2D g = (Graphics2D) graphics;
 		super.paintComponent(g);
