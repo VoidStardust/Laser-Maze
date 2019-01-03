@@ -34,8 +34,8 @@ class OptionPanel extends JPanel implements MouseListener, MouseMotionListener {
 	}
 	
 	private void initOption(){
-		label = new JLabel[7];
-		icon = new ImageIcon[5];
+		label = new JLabel[9];
+		icon = new ImageIcon[6];
 		
 		for(int i = 0; i < 5; i++) {
 			icon[i] = new ImageIcon("./img/op" + (i + 1) + ".jpg");
@@ -53,19 +53,33 @@ class OptionPanel extends JPanel implements MouseListener, MouseMotionListener {
 			
 			label[5] = new JLabel();
 			label[6] = new JLabel();
+			label[8] = new JLabel();
 			label[5].setVisible(true);
 			label[6].setVisible(true);
+			label[8].setVisible(true);
 			label[5].setForeground(Color.BLUE);
 			label[6].setForeground(Color.BLUE);
+			label[8].setForeground(Color.GREEN);
 			label[5].setFont(new Font("Times New Roman", Font.BOLD, 15));
 			label[6].setFont(new Font("Times New Roman", Font.BOLD, 15));
+			label[8].setFont(new Font("Times New Roman", Font.BOLD, 15));;
 			label[6].setText("Score: " + basepanel.score);
-			
+
 			label[5].setBounds(20, 430, 80, 30);
-			label[6].setBounds(20, 480, 80, 30);
+			label[6].setBounds(20, 460, 80, 30);
+			label[8].setBounds(20, 490, 80, 30);
 			add(label[5]);
 			add(label[6]);
-			
+			add(label[8]);
+
+			icon[5] = new ImageIcon("./img/op6.jpg");
+			label[7] = new JLabel();
+			label[7].setIcon(icon[5]);
+			label[7].setBounds(0, 40, icon[5].getIconWidth(), icon[5].getIconHeight());
+			label[7].setVisible(false);
+			add(label[7]);
+
+
 
 	}
 	
@@ -114,12 +128,22 @@ class OptionPanel extends JPanel implements MouseListener, MouseMotionListener {
 		} else {
 			label[4].setVisible(false);
 		}
+
+		if(x < icon[5].getIconWidth() && y > 40 && y < 90) {
+			label[7].setVisible(true);
+		} else {
+			label[7].setVisible(false);
+		}
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		int x = arg0.getX(), y = arg0.getY();
+
+		if(x < icon[5].getIconWidth() && y > 40 && y < 90) {
+			basepanel.confirm();
+		}
 		
 		if(x < icon[0].getIconWidth() && y > 100 && y < 150) {
 			basepanel.withDraw();
@@ -127,7 +151,7 @@ class OptionPanel extends JPanel implements MouseListener, MouseMotionListener {
 		
 		if(x < icon[1].getIconWidth() && y > 160 && y < 210) {
 			//basepanel.setScore(-5);
-			basepanel.getHint();
+			//basepanel.confirm();
 			basepanel.showScore();
 		}		
 		if(x < icon[2].getIconWidth() && y > 220 && y < 270) {

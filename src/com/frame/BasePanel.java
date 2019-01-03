@@ -1,15 +1,11 @@
 package com.frame;
 
-import java.awt.BorderLayout;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import javax.swing.ImageIcon;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
+
 import com.panel.GamePanel;
 
 class BasePanel extends JPanel implements MouseListener {
@@ -20,15 +16,18 @@ class BasePanel extends JPanel implements MouseListener {
 	int round, score;
 	boolean []noSolution;
 	boolean []accepted;
+	String []state;
 	public BasePanel(MainPanel mainpanel) {
 		this.mainpanel = mainpanel;
 		
 		score = 50;
 		noSolution = new boolean[20];
 		accepted = new boolean[20];
+		state = new String[20];
 		for(int i=0;i<20;i++) {
 			noSolution[i]=true;
 			accepted[i]=false;
+			state[i]="Unsolved";
 		}
 		setLayout(null);
 		initBase();
@@ -43,6 +42,7 @@ class BasePanel extends JPanel implements MouseListener {
 	void setRound() {
 		optionpanel.label[5].setText("Round:" + round);
 		gamepanel.setRound(round);
+		optionpanel.label[8].setText("State:" + state[round-1]);
 	}
 	
 	void reStart() {
@@ -56,7 +56,9 @@ class BasePanel extends JPanel implements MouseListener {
 	void showScore() {
 		optionpanel.label[6].setText("Score:" + score);
 	}
-	
+	void showState(){
+		optionpanel.label[8].setText("State:"+state[round-1]);
+	}
 	void withDraw() {
 		gamepanel.withdraw();
 	}
@@ -66,33 +68,23 @@ class BasePanel extends JPanel implements MouseListener {
 		noSolution[round-1]=false;
 		System.out.println(round);
 	}
-	void getHint() {
-		if(gamepanel.getBoard().isCorrect() ) {
-			
+	void confirm() {
+		if(gamepanel.isCorrect(round-1) ) {
 			if(noSolution[round-1] && !accepted[round-1]) {
 				this.score+=gamepanel.getBoard().giveGrade();
 				accepted[round-1] = true;
-				
+				showScore();
 			}
-			else if(noSolution[round-1] == false){
-				System.out.println("you use answer");
-			}
-			else if(accepted[round-1] == true) {
-				System.out.println("you try twice");
-			}
-			
-			int n = JOptionPane.showConfirmDialog(null, "Congratulations", "", JOptionPane.PLAIN_MESSAGE);
-			if(n == 0) {
-				round=round%20;
-				round++;
-				setRound();
-			}
-			
+			Dialog dog=new Dialog("./img/AC.jpg");
+			state[round-1]="Solved";
+			round=round%20;
+			round++;
+			setRound();
 		} else {
-			System.out.println("wrong");
+			Dialog dog=new Dialog("./img/Wrong.jpg");
 		}
 	}
-	
+
 		private void initBase() {
 		optionpanel = new OptionPanel((new ImageIcon("./img/option1.jpg")).getImage(), mainpanel, BasePanel.this);
 		gamepanel = new GamePanel();
@@ -107,17 +99,7 @@ class BasePanel extends JPanel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		if(arg0.getSource() == gamepanel) {
-			if(gamepanel.getBoard().isCorrect()) {
-				System.out.println("Correct锛�");
-			}
-			else {
-				System.out.println("WRONG!");
-			}
-		}
-		else {
-			System.out.println("no way");
-		}
+
 	}
 
 	@Override
@@ -143,4 +125,37 @@ class BasePanel extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 		
 	}
+	class Dialog extends JDialog {
+		BackgroundPanel panel;
+		JButton button;
+		private Toolkit tool;
+		private Dimension dim;
+
+		public Dialog(String icon) {
+			panel = new BackgroundPanel((new ImageIcon(icon)).getImage());
+			setResizable(false);
+			this.setContentPane(panel);
+			setSize(314, 202);
+			tool = Toolkit.getDefaultToolkit();
+			dim = tool.getScreenSize();
+			setLocation((dim.width - getWidth()) / 2, (dim.height - getHeight()) / 2);
+			setVisible(true);
+		}
+	}
+
+	class BackgroundPanel extends JPanel {
+		Image im;
+
+		public BackgroundPanel(Image im) {
+			this.im = im;
+
+			setLayout(null);
+		}
+
+		public void paintComponent(Graphics g) {
+			super.paintComponent(g);
+			g.drawImage(im,0,0,this.getWidth(),this.getHeight(),this);
+		}
+	}
+
 }
