@@ -58,11 +58,27 @@ public class GamePanel extends JPanel implements MouseListener {
 		repaint();
 	}
 
-	public void giveHint() {
+	public void giveHint(int n) {
 		Graphics g = getGraphics();
-//		Position p = board.giveHint();
-		Position p = new Position(1, 1);
-		Painter.DrawCross(g, p.getX(), p.getY());
+		Board solutionBoard=Rounds.getSolution(n);
+		for(int i=0;i<5;i++){
+			for(int j=0;j<5;j++){
+				if(board.board[i][j].equals(solutionBoard.board[i][j])) {
+					continue;
+				}
+				else if(board.board[i][j].equalsIgnoreMode(solutionBoard.board[i][j])){
+					Painter.DrawQuestion(g,i,j);
+				}
+				else {
+					if(board.board[i][j] instanceof EmptyChess){
+						Painter.DrawExclamation(g,i,j);
+					}
+					else{
+						Painter.DrawCross(g,i,j);
+					}
+				}
+			}
+		}
 	}
 
 	public void paintComponent(Graphics graphics) {
@@ -123,7 +139,7 @@ public class GamePanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		giveHint();
+		//giveHint();
 	}
 
 	@Override
