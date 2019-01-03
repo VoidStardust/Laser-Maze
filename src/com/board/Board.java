@@ -60,9 +60,6 @@ public class Board {
 			positionStack.push(new Position(x, y));
 	}
 
-	public void deleteChess(int x, int y) {
-		board[x][y] = new EmptyChess();
-	}
 
 	public void setBegin(int x, int y) {
 		start = new Position(x, y);
@@ -206,9 +203,16 @@ public class Board {
 	}
 
 	public boolean isCorrect() {
-		visitInfos.clear();
-		boolean res;
-		res = formRoute();
+		boolean res=true;
+		Board solutionBoard=Rounds.getSolution(roundNum+1);
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				if(!board[i][j].equals(solutionBoard.board[i][j])){
+					res = false;
+					break;
+				}
+			}
+		}
 		return res;
 	}
 
@@ -228,24 +232,6 @@ public class Board {
 
 	}
 
-	/*
-
-
-	public void giveHint() {
-		Board solutionBoard = Rounds.getInstance().solutions.get(roundNum);
-		for(int i = 0; i < 5; i++) {
-			for(int j = 0; j < 5; j++) {
-				if(solutionBoard.board[i][j].equals(this.board[i][j])) {
-					continue;
-				} else {
-					this.board[i][j] = solutionBoard.board[i][j];
-					break;
-					//repaint
-				}
-			}
-		}
-	}
-	 */
 	public int giveGrade() {
 		return level * 100;
 	}
