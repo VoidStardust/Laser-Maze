@@ -36,7 +36,7 @@ public class Painter {
 
 	private static void DrawRoute(Graphics graphics, Route route) {
 		Graphics2D g = (Graphics2D) graphics;
-		ArrayList <Position> line = route.line;
+		ArrayList<Position> line = route.line;
 		g.setColor(Color.red);
 		BasicStroke bs1 = new BasicStroke(5);
 		g.setStroke(bs1);
@@ -49,13 +49,13 @@ public class Painter {
 	}
 
 	public static void DrawRoutes(Graphics graphics, Board board) {
-		ArrayList <Route> routes = board.getRoute();
+		ArrayList<Route> routes = board.getRoute();
 		for(Route route : routes) {
 			DrawRoute(graphics, route);
 		}
 	}
 
-	public static void DrawUnused(Graphics graphics, int x, ArrayList <Chess> unusedChess, ImageObserver imageObserver) {
+	public static void DrawUnused(Graphics graphics, int x, ArrayList<Chess> unusedChess, ImageObserver imageObserver) {
 		int pos = 0;
 		for(Chess chess : unusedChess) {
 			chess.DrawChess(graphics, x, pos, imageObserver);
@@ -71,13 +71,16 @@ public class Painter {
 		g.drawLine(x * width, y * height, (x + 1) * width, (y + 1) * height);
 		g.drawLine((x + 1) * width, y * height, x * width, (y + 1) * height);
 	}
-	public static void DrawExclamation(Graphics graphics,int x,int y){
+
+	public static void DrawExclamation(Graphics graphics, int x, int y) {
 
 	}
-	public static void DrawQuestion(Graphics graphics,int x,int y){
+
+	public static void DrawQuestion(Graphics graphics, int x, int y) {
 
 	}
-	public static void DrawDividing (Graphics graphics, int x, int y, int length) {
+
+	public static void DrawDividing(Graphics graphics, int x, int y, int length) {
 		Graphics2D g = (Graphics2D) graphics;
 		g.setColor(Color.gray);
 		BasicStroke bs1 = new BasicStroke(5);
