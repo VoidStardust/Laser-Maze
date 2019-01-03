@@ -202,19 +202,6 @@ public class Board {
 		return res;
 	}
 
-	public boolean isCorrect() {
-		boolean res=true;
-		Board solutionBoard=Rounds.getSolution(roundNum+1);
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				if(!board[i][j].equals(solutionBoard.board[i][j])){
-					res = false;
-					break;
-				}
-			}
-		}
-		return res;
-	}
 
 	//测试
 	public void withdraw() {
