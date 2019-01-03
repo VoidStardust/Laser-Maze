@@ -15,7 +15,6 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-
 public class GamePanel extends JPanel implements MouseListener {
 
 	private Board board = new Board(0, 0);
