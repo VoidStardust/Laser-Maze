@@ -14,16 +14,28 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
+public class GamePanel extends JPanel implements MouseListener, MouseMotionListener {
 
-public class GamePanel extends JPanel implements MouseListener {
-
-	private Board board ;
+	private Board board;
 	private Chess selectedChess = new EmptyChess();
-	private static int selected;
+	private boolean mode = false; //0 common mode, >0 diy mode
+	private static int selected = -1;
 
 	public GamePanel() {
-		this.addMouseListener(this);
+		addMouseListener(this);
+		addMouseMotionListener(this);
+	}
+
+	public GamePanel(boolean mode) {
+		this.mode = mode;
+		addMouseListener(this);
+		addMouseMotionListener(this);
+	}
+
+	public void setMode(boolean mode) {
+		this.mode = mode;
 	}
 
 	public void setRound(int n) {
@@ -60,33 +72,30 @@ public class GamePanel extends JPanel implements MouseListener {
 
 	public void giveHint(int n) {
 		Graphics g = getGraphics();
-		Board solutionBoard=Rounds.getSolution(n);
-		for(int i=0;i<5;i++){
-			for(int j=0;j<5;j++){
+		Board solutionBoard = Rounds.getSolution(n);
+		for(int i = 0; i < 5; i++) {
+			for(int j = 0; j < 5; j++) {
 				if(board.board[i][j].equals(solutionBoard.board[i][j])) {
 					continue;
-				}
-				else if(board.board[i][j].equalsIgnoreMode(solutionBoard.board[i][j])){
-					Painter.DrawQuestion(g,i,j);
-				}
-				else {
-					if(board.board[i][j] instanceof EmptyChess){
-						Painter.DrawExclamation(g,i,j);
-					}
-					else{
-						Painter.DrawCross(g,i,j);
+				} else if(board.board[i][j].equalsIgnoreMode(solutionBoard.board[i][j])) {
+					Painter.DrawQuestion(g, i, j);
+				} else {
+					if(board.board[i][j] instanceof EmptyChess) {
+						Painter.DrawExclamation(g, i, j);
+					} else {
+						Painter.DrawCross(g, i, j);
 					}
 				}
 			}
 		}
 	}
 
-	public boolean isCorrect(int n){
-		Board solutionBoard=Rounds.getSolution(n+1);
+	public boolean isCorrect(int n) {
+		Board solutionBoard = Rounds.getSolution(n + 1);
 		System.out.println("roundNum = " + n);
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				if(!board.board[i][j].equals(solutionBoard.board[i][j])){
+		for(int i = 0; i < 5; i++) {
+			for(int j = 0; j < 5; j++) {
+				if(!board.board[i][j].equals(solutionBoard.board[i][j])) {
 					//System.out.println(i+"+"+j);
 					return false;
 				}
@@ -94,6 +103,7 @@ public class GamePanel extends JPanel implements MouseListener {
 		}
 		return true;
 	}
+
 	public void paintComponent(Graphics graphics) {
 		Graphics2D g = (Graphics2D) graphics;
 		super.paintComponent(g);
@@ -101,7 +111,7 @@ public class GamePanel extends JPanel implements MouseListener {
 		g.fillRect(0, 0, getWidth(), getHeight());
 		Painter.DrawBoard(g, board, this);
 		Painter.DrawRoutes(g, board);
-		Painter.DrawUnused(g, 550, board.getUnusedChess(), this);
+		Painter.DrawUnused(g, selected, board.getUnusedChess(), this);
 		Painter.DrawDividing(g, 525, 50, 400);
 	}
 
@@ -112,16 +122,17 @@ public class GamePanel extends JPanel implements MouseListener {
 
 		int ret = inArea(x, y);
 
-		//System.out.println(ret);
-
 		if(ret == 0) {
 			x /= Painter.width;
 			y /= Painter.height;
 
 			if(selectedChess.getType() != ChessType.EmptyChess && board.board[y][x].getType() == ChessType.EmptyChess) {
 				board.addChess(y, x, selectedChess);
-				board.getUnusedChess().remove(selected);
-				selectedChess = new EmptyChess();
+				if(!mode) {
+					board.getUnusedChess().remove(selected);
+					selectedChess = new EmptyChess();
+					selected = -1;
+				}
 			} else {
 				board.board[y][x].rotate();
 			}
@@ -152,7 +163,8 @@ public class GamePanel extends JPanel implements MouseListener {
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		//giveHint();
+		int x = e.getX();
+		int y = e.getY();
 	}
 
 	@Override
@@ -167,5 +179,28 @@ public class GamePanel extends JPanel implements MouseListener {
 			return 1;
 		}
 		return 2;
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		int x = e.getX();
+		int y = e.getY();
+
+//		int ret = inArea(x, y);
+//
+//		if(ret == 1) {
+//			if(y / Painter.height != select) {
+//				repaint();
+//				select = y / Painter.height;
+//				Painter.DrawHighlight(getGraphics(), 550, select * Painter.height);
+//			}
+//		} else {
+//			repaint();
+//		}
 	}
 }
