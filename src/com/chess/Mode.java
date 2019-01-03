@@ -1,0 +1,5 @@
+package com.chess;
+
+public enum Mode {
+	NULL, LEFT, RIGHT, HORIZONTAL, VERTICAL, UP, DOWN, LEFTDOWN, LEFTUP, RIGHTRIGHT, RIGHTLEFT
+}
