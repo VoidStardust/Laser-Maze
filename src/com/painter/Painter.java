@@ -103,8 +103,8 @@ public class Painter {
 		BasicStroke bs1 = new BasicStroke(4);
 		g.setStroke(bs1);
 
-		double H = 6;
-		double L = 3;
+		double H = 10;
+		double L = 5;
 		int x3 = 0;
 		int y3 = 0;
 		int x4 = 0;
