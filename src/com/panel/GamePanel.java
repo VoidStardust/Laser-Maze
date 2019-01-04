@@ -5,9 +5,7 @@ import com.board.Board;
 import com.board.Position;
 import com.board.Rounds;
 
-import com.chess.Chess;
-import com.chess.ChessType;
-import com.chess.EmptyChess;
+import com.chess.*;
 import com.painter.Painter;
 
 import javax.swing.*;
@@ -38,8 +36,28 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		this.mode = mode;
 	}
 
+
 	public void setRound(int n) {
 		board = Rounds.getRound(n);
+		selectedChess = new EmptyChess();
+		selected = -1;
+		board.update();
+		repaint();
+	}
+
+	public void setDIYBoard(){
+		board=new Board(0,0);
+		for(int i = 0;i < 5;i++) {
+			for (int j = 0; j < 5; j++) {
+				board.addChess(new EmptyChess(),i,j);
+			}
+		}
+		board.addUnusedChess(new EmitChess());
+		board.addUnusedChess(new ReceiveChess());
+		board.addUnusedChess(new DualReflectorChess());
+		board.addUnusedChess(new ChannelChess());
+		board.addUnusedChess(new ReflectorChess());
+		setMode(true);
 		board.update();
 		repaint();
 	}
@@ -50,11 +68,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		repaint();
 	}
 
-	public void setBoard(Board board) {
-		this.board = (Board) board;
-		this.board.update();
-		repaint();
-	}
+
 
 	public Board getBoard() {
 		return board;
@@ -65,7 +79,16 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	}
 
 	public void withdraw() {
-		board.withdraw();
+		if(!board.positionStack.isEmpty()) {
+			Position pos = board.positionStack.pop();
+			int x = pos.getX();
+			int y = pos.getY();
+			Chess chess = (Chess) board.board[x][y].clone();
+			chess.resetMode();
+			board.board[x][y] = new EmptyChess();
+			if(!mode)
+				board.unusedChess.add(chess);
+		}
 		board.update();
 		repaint();
 	}
@@ -156,7 +179,7 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 	public void mouseReleased(MouseEvent e) {
 		int x = e.getX();
 		int y = e.getY();
-		//System.out.println(x + " " + y);
+
 	}
 
 	@Override
@@ -189,16 +212,5 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 		int x = e.getX();
 		int y = e.getY();
 
-//		int ret = inArea(x, y);
-//
-//		if(ret == 1) {
-//			if(y / Painter.height != select) {
-//				repaint();
-//				select = y / Painter.height;
-//				Painter.DrawHighlight(getGraphics(), 550, select * Painter.height);
-//			}
-//		} else {
-//			repaint();
-//		}
 	}
 }

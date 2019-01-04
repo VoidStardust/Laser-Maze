@@ -5,17 +5,17 @@ import java.util.Stack;
 
 import com.chess.*;
 
+
 public class Board {
 
 	public Chess[][] board;
 	private ArrayList<VisitInfo> visitInfos;
 	private ArrayList<Route> routeArray;
-	private ArrayList<Chess> unusedChess;
-	private Stack<Position> positionStack;
+	public ArrayList<Chess> unusedChess;
+	public Stack<Position> positionStack;
 	int level;
 	int roundNum;
 	Position start;
-	Position checkPoint;
 
 	public Board(int level, int roundNum) {
 		board = new Chess[5][5];
@@ -26,7 +26,6 @@ public class Board {
 		initChess();
 		this.level = level;
 		start = new Position(-1, -1);
-		checkPoint = new Position(-1, -1);
 	}
 
 	private boolean visited(VisitInfo info) {
@@ -43,7 +42,7 @@ public class Board {
 				addChess(new EmptyChess(), i, j);
 	}
 
-	void addChess(Chess chess, int x, int y) {
+	public void addChess(Chess chess, int x, int y) {
 		if(!inArea(x, y))
 			return;
 		if(board[x][y] instanceof BlockChess)
@@ -119,7 +118,6 @@ public class Board {
 			routeArray.add(rt);
 			return false;
 		}
-		System.out.println(x + "," + y);
 		if(visited(new VisitInfo(new Position(x, y), dir))) {
 			routeArray.add(rt);
 			return false;
@@ -134,10 +132,6 @@ public class Board {
 				((ReceiveChess) chess).reset();
 				return true;
 			}
-		}
-		if(chess instanceof ChannelChess) {
-			checkPoint = new Position(x, y);
-			((ChannelChess) chess).setUsed();
 		}
 		boolean res = true;
 		int tmpx = x;
@@ -192,13 +186,11 @@ public class Board {
 			res = formRoute(tmpx, tmpy, tmpdir, newRt) && res;
 		}
 		res = formRoute(x, y, dir, rt) && res;
-		if(checkPoint.getX() != -1 && checkPoint.getY() != -1)
-			res = res && ((ChannelChess) board[checkPoint.getX()][checkPoint.getY()]).used();
 		return res;
 	}
 
 
-	public void withdraw() {
+	/*public void withdraw() {
 		if(!positionStack.isEmpty()) {
 			Position pos = positionStack.pop();
 			int x = pos.getX();
@@ -209,7 +201,7 @@ public class Board {
 			unusedChess.add(chess);
 		}
 
-	}
+	}*/
 
 	public int giveGrade() {
 		return level * 100;
@@ -228,7 +220,100 @@ public class Board {
 		}
 		formRoute();
 	}
+	public void autoSolve(){
+		int x=start.getX();
+		int y=start.getY();
+		if(x !=-1 && y != -1){
+			Route rt=new Route();
+			autoSolve(x,y,Direction.UP,rt);
+			autoSolve(x,y,Direction.DOWN,rt);
+			autoSolve(x,y,Direction.LEFT,rt);
+			autoSolve(x,y,Direction.RIGHT,rt);
+		}
+	}
+	private void autoSolve(int x,int y,Direction dir,Route rt){
+		switch (dir){
+			case UP:
+				x--;
+				System.out.println("up");
+				break;
+			case DOWN:
+				x++;
+				System.out.println("down");
+				break;
+			case LEFT:
+				y--;
+				System.out.println("left");
+				break;
+			case RIGHT:
+				y++;
+				System.out.println("right");
+				break;
+			default:
+				routeArray.add(rt);
+				System.out.println("end");
+				break;
+		}
+		if(!inArea(x,y)){
+			routeArray.add(rt);
+			System.out.println("out of area");
+			return;
+		}
+		if(visited(new VisitInfo(new Position(x, y), dir))) {
+			routeArray.add(rt);
+			System.out.println("visited");
+			return ;
+		}
+		rt.line.add(new Position(x, y));
+		visitInfos.add(new VisitInfo(new Position(x, y), dir));
+		Direction []dirArray={Direction.UP,Direction.LEFT,Direction.DOWN,Direction.RIGHT};
+		int j;
+		for ( j = 0; j < 4; j++) {
+			if(dirArray[j].equals(dir))
+				break;
+		}
+		Chess chess=board[x][y];
+		ChessType type=chess.getType();
+		switch (type){
+			case EmptyChess:
+				autoSolve(x,y,dir,rt);
+				break;
+			case ReflectorChess:
+				autoSolve(x,y,dirArray[(j+1)%4],rt);
+				autoSolve(x,y,dirArray[(j+3)%4],rt);
+				break;
+			case ChannelChess:
+				autoSolve(x,y,dir,rt);
+				break;
+			case ReceiveChess:
+				autoSolve(x,y,dirArray[(j+1)%4],rt);
+				autoSolve(x,y,dirArray[(j+3)%4],rt);
+				autoSolve(x,y,Direction.NULL,rt);
+				break;
+			case DualReflectorChess:
+				autoSolve(x,y,dirArray[(j+1)%4],rt);
+				autoSolve(x,y,dirArray[(j+3)%4],rt);
+				Route forkRt=new Route(rt);
+				autoSolve(x,y,dir,forkRt);
+				break;
+		}
+	}
 
+	public static void main(String[] args) {
+		Board board=new Board(0,0);
+		board.addChess(new EmitChess(),4,1);
+		board.addChess(new ReceiveChess(),4,4);
+		board.addChess(new ReceiveChess(),0,0);
+		board.addChess(new ReceiveChess(),0,4);
+		board.addChess(new ReceiveChess(),4,0);
+		board.autoSolve();
+		for(Route rt: board.routeArray){
+			System.out.println("---");
+			for(Position pos:rt.line){
+				System.out.println(pos);
+			}
+		}
+	}
 }
 
 class VisitInfo {

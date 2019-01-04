@@ -1,4 +1,5 @@
 import com.frame.GameFrame;
+import com.frame.LoadFrame;
 
 
 import javax.swing.JFrame;
@@ -6,9 +7,6 @@ import javax.swing.JFrame;
 public class Main {
 
 	public static void main(String[] args) {
-		GameFrame gf = new GameFrame();
-		gf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		gf.setVisible(true);
-
+		LoadFrame loadFrame = new LoadFrame();
 	}
 }

@@ -89,11 +89,11 @@ class ModeOption extends JPanel implements MouseListener, MouseMotionListener {
 		int x = arg0.getX(), y = arg0.getY();
 		
 		if(x < icon[0].getIconWidth() && y > 40 && y < 90) {
-			
+			modepanel.restart();
 		}
 		
 		if(x < icon[1].getIconWidth() && y > 100 && y < 150) {
-			
+			modepanel.withDraw();
 		} 
 		
 		if(x < icon[2].getIconWidth() && y > 160 && y < 210) {
