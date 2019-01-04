@@ -12,6 +12,7 @@ class MainPanel extends JPanel {
 	BasePanel basepanel;
 	HelpPanel helppanel;
 	AboutPanel aboutpanel;
+	ModePanel modepanel;
 	
 	public MainPanel() {
 		card = new CardLayout();
@@ -26,11 +27,13 @@ class MainPanel extends JPanel {
 		levelpanel = new LevelPanel((new ImageIcon("./img/level.jpg")).getImage(), MainPanel.this, basepanel);
 		helppanel = new HelpPanel(MainPanel.this);
 		aboutpanel = new AboutPanel((new ImageIcon("./img/about.jpg")).getImage(), MainPanel.this);
+		modepanel = new ModePanel(MainPanel.this);
 		
 		add(menupanel);
 		add(levelpanel);
 		add(basepanel);
 		add(helppanel);
 		add(aboutpanel);
+		add(modepanel);
 	}
 }
