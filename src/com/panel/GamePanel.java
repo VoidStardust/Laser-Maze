@@ -153,6 +153,8 @@ public class GamePanel extends JPanel implements MouseListener, MouseMotionListe
 					board.getUnusedChess().remove(selected);
 					selectedChess = new EmptyChess();
 					selected = -1;
+				} else {
+					selectedChess = (Chess) board.getUnusedChess().get(selected).clone();
 				}
 			} else {
 				board.board[y][x].rotate();
